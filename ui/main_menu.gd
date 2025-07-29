@@ -13,6 +13,8 @@ const button_size : Rect2 = Rect2(-46,-12,92,24)
 
 func _ready() -> void:
 	animation_player.speed_scale = 1.0 / transition_time
+	animation_player.play("fade_in")
+	
 
 func is_mouse_over_button(button_node : Sprite2D, mouse_position : Vector2) -> bool:
 	return button_size.has_point(button_node.to_local(mouse_position))
@@ -27,6 +29,9 @@ func _input(event: InputEvent) -> void:
 			get_tree().change_scene_to_file(main_scene_path)
 		elif is_mouse_over_button(load_button, mouse_position):
 			load_button.frame_coords.x = 2 #TODO: add load feature
+			animation_player.play("fade_out")
+			await get_tree().create_timer(transition_time).timeout
+			SaveManager.load_game()
 		elif is_mouse_over_button(options_button,mouse_position):
 			options_button.frame_coords.x = 2 #TODO: add options
 		elif is_mouse_over_button(quit_button, mouse_position):
@@ -36,6 +41,6 @@ func _input(event: InputEvent) -> void:
 			get_tree().quit()
 		
 	elif event is InputEventMouseMotion:
-		for button in [start_button, load_button, options_button, quit_button]:
+		for button in [start_button, load_button, options_button, quit_button]: #Handles button highlights
 			if button.frame_coords.x != 2:
 				button.frame_coords.x = int(!is_mouse_over_button(button, mouse_position))

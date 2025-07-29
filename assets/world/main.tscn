@@ -20,6 +20,7 @@ shape = SubResource("RectangleShape2D_0hol4")
 texture = ExtResource("1_btw8h")
 
 [node name="Player" parent="." instance=ExtResource("2_p0te5")]
+unique_name_in_owner = true
 position = Vector2(555, 364)
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
