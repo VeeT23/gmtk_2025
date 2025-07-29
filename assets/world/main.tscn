@@ -74,7 +74,7 @@ shape = SubResource("RectangleShape2D_0hol4")
 texture = ExtResource("1_btw8h")
 
 [node name="StaticBody2D7" type="StaticBody2D" parent="."]
-position = Vector2(930, 341)
+position = Vector2(1014, 322)
 scale = Vector2(1.59721, 0.458899)
 metadata/_edit_group_ = true
 
@@ -85,7 +85,7 @@ shape = SubResource("RectangleShape2D_0hol4")
 texture = ExtResource("1_btw8h")
 
 [node name="StaticBody2D8" type="StaticBody2D" parent="."]
-position = Vector2(1121, 256)
+position = Vector2(1254, 234)
 scale = Vector2(1.59721, 0.458899)
 metadata/_edit_group_ = true
 
