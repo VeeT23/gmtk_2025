@@ -2,24 +2,38 @@ extends CharacterBody2D
 
 
 const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+const JUMP_VELOCITY = -500.0
 
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+	if is_multiplayer_authority():
+		# Apply gravity
+		if not is_on_floor():
+			velocity.y += get_gravity().y * delta
 
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		# Respawn if too low
+		if position.y > 600:
+			position = Vector2(629, 339)
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("left", "right")
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		# Jump
+		if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+			velocity.y = JUMP_VELOCITY
 
+		# Horizontal movement
+		var direction := Input.get_axis("left", "right")
+		if direction:
+			velocity.x = direction * SPEED
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
+
+		# Apply motion and sync position to others
+		move_and_slide()
+		rpc("sync_position", global_position)
+	
+
+@rpc("any_peer")
+func sync_position(pos: Vector2):
+	if not is_multiplayer_authority():
+		global_position = pos
+	
 	move_and_slide()
