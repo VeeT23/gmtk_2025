@@ -28,7 +28,7 @@ func _input(event: InputEvent) -> void:
 			animation_player.play("fade_out")
 			await get_tree().create_timer(transition_time).timeout
 			get_tree().change_scene_to_file(main_scene_path)
-			Network.create_server()
+			
 		elif is_mouse_over_button(load_button, mouse_position):
 			load_button.frame_coords.x = 2 #TODO: add load feature
 			animation_player.play("fade_out")

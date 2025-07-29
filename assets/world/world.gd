@@ -1,9 +1,13 @@
 extends Node2D
-@export var player_scene: PackedScene
+var player_scene: PackedScene = preload("res://assets/player/player.tscn")
 
 var players := {}
 
+func _ready() -> void:
+	Network.create_server()
+
 func spawn_player(id: int):
+	print("Spawning player")
 	if players.has(id): return
 	var p = player_scene.instantiate()
 	p.name = "Player_%d" % id

@@ -45,8 +45,9 @@ func _on_server_disconnected():
 
 @rpc("any_peer")
 func spawn_player(id: int):
+	print(get_tree().get_nodes_in_group("World"))
 	print("RPC: Spawning player ", id)
-	get_tree().call_group("World", "spawn_player", id)
+	get_tree().get_root().get_node("World").spawn_player(id)
 
 @rpc("any_peer")
 func remove_player(id: int):
