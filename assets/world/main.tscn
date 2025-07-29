@@ -20,7 +20,7 @@ shape = SubResource("RectangleShape2D_0hol4")
 texture = ExtResource("1_btw8h")
 
 [node name="Player" parent="." instance=ExtResource("2_p0te5")]
-position = Vector2(555, 364)
+position = Vector2(629, 339)
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 position = Vector2(640, 529)
@@ -60,6 +60,39 @@ metadata/_edit_group_ = true
 shape = SubResource("RectangleShape2D_0hol4")
 
 [node name="Icon" type="Sprite2D" parent="StaticBody2D5"]
+texture = ExtResource("1_btw8h")
+
+[node name="StaticBody2D6" type="StaticBody2D" parent="."]
+position = Vector2(808, 419)
+scale = Vector2(1.59721, 0.458899)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D6"]
+shape = SubResource("RectangleShape2D_0hol4")
+
+[node name="Icon" type="Sprite2D" parent="StaticBody2D6"]
+texture = ExtResource("1_btw8h")
+
+[node name="StaticBody2D7" type="StaticBody2D" parent="."]
+position = Vector2(930, 341)
+scale = Vector2(1.59721, 0.458899)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D7"]
+shape = SubResource("RectangleShape2D_0hol4")
+
+[node name="Icon" type="Sprite2D" parent="StaticBody2D7"]
+texture = ExtResource("1_btw8h")
+
+[node name="StaticBody2D8" type="StaticBody2D" parent="."]
+position = Vector2(1121, 256)
+scale = Vector2(1.59721, 0.458899)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D8"]
+shape = SubResource("RectangleShape2D_0hol4")
+
+[node name="Icon" type="Sprite2D" parent="StaticBody2D8"]
 texture = ExtResource("1_btw8h")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
