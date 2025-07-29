@@ -27,6 +27,7 @@ func _input(event: InputEvent) -> void:
 			start_button.frame_coords.x = 2
 			animation_player.play("fade_out")
 			await get_tree().create_timer(transition_time).timeout
+			Network.is_hosting = true
 			get_tree().change_scene_to_file(main_scene_path)
 			
 		elif is_mouse_over_button(load_button, mouse_position):
@@ -42,7 +43,9 @@ func _input(event: InputEvent) -> void:
 			await get_tree().create_timer(transition_time).timeout
 			get_tree().quit()
 		elif is_mouse_over_button(join_button, mouse_position):
-			Network.join_server($CanvasLayer/Overlay/TextEdit.text)
+			Network.ip = $CanvasLayer/Overlay/TextEdit.text
+			get_tree().change_scene_to_file(main_scene_path)
+		
 		
 		
 	elif event is InputEventMouseMotion:

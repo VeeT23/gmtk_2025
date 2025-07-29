@@ -3,6 +3,9 @@ extends Node
 @export var port := 7777
 @export var max_clients := 8
 
+var is_hosting = false
+var ip : String;
+
 func create_server():
 	var peer = ENetMultiplayerPeer.new()
 	var err = peer.create_server(port, max_clients)
@@ -16,7 +19,7 @@ func create_server():
 	
 	spawn_player(multiplayer.get_unique_id())
 
-func join_server(ip: String):
+func join_server():
 	var peer = ENetMultiplayerPeer.new()
 	var err = peer.create_client(ip, port)
 	if err != OK:
@@ -27,6 +30,7 @@ func join_server(ip: String):
 	multiplayer.connection_failed.connect(_on_connect_failed)
 	multiplayer.peer_disconnected.connect(_on_server_disconnected)
 	print("Trying to connect to %s:%d" % [ip, port])
+
 
 func _on_peer_connected(id: int):
 	rpc_id(id, "spawn_player", id)

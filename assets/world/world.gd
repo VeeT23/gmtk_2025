@@ -4,7 +4,10 @@ var player_scene: PackedScene = preload("res://assets/player/player.tscn")
 var players := {}
 
 func _ready() -> void:
-	Network.create_server()
+	if Network.is_hosting:
+		Network.create_server()
+	else:
+		Network.join_server()
 
 func spawn_player(id: int):
 	print("Spawning player")
