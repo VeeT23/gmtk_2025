@@ -2,21 +2,7 @@
 
 [ext_resource type="Script" uid="uid://fosq7v5dfad4" path="res://ui/main_menu.gd" id="1_t7e0r"]
 [ext_resource type="Texture2D" uid="uid://dgvfnrb0htcx" path="res://ui/sprites/buttons.png" id="2_0dkrt"]
-
-[sub_resource type="Animation" id="Animation_0dkrt"]
-resource_name = "fade_out"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.0666667, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
-}
+[ext_resource type="Animation" uid="uid://dhwym8avp4g0m" path="res://ui/fade_out.res" id="3_wk0pr"]
 
 [sub_resource type="Animation" id="Animation_wk0pr"]
 length = 0.001
@@ -36,7 +22,7 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rmr83"]
 _data = {
 &"RESET": SubResource("Animation_wk0pr"),
-&"fade_out": SubResource("Animation_0dkrt")
+&"fade_out": ExtResource("3_wk0pr")
 }
 
 [node name="MainMenu" type="Node2D"]
