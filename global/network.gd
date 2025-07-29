@@ -63,6 +63,7 @@ func _on_server_disconnected():
 	print("Server disconnected")
 	# Clean up all players when server disconnects
 	get_tree().call_group("players", "queue_free")
+	get_tree().change_scene_to_file("res://ui/main_menu.tscn")
 
 @rpc("any_peer", "call_local", "reliable")
 func spawn_player(id: int):

@@ -1,0 +1,67 @@
+[gd_scene load_steps=6 format=3 uid="uid://d4d4cs2mfqja2"]
+
+[ext_resource type="Script" uid="uid://dafaaawtktl28" path="res://ui/fade_in.gd" id="1_40k5o"]
+[ext_resource type="Animation" uid="uid://dhwym8avp4g0m" path="res://ui/fade_out.res" id="2_foox6"]
+
+[sub_resource type="Animation" id="Animation_wk0pr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_rmr83"]
+resource_name = "fade_in"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rmr83"]
+_data = {
+&"RESET": SubResource("Animation_wk0pr"),
+&"fade_in": SubResource("Animation_rmr83"),
+&"fade_out": ExtResource("2_foox6")
+}
+
+[node name="FadeIn" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_40k5o")
+
+[node name="Fade" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Fade"]
+libraries = {
+&"": SubResource("AnimationLibrary_rmr83")
+}
