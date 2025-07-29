@@ -1,17 +1,17 @@
 [gd_scene load_steps=5 format=3 uid="uid://b7jiphcimusao"]
 
 [ext_resource type="Texture2D" uid="uid://djgvq6j03md4n" path="res://icon.svg" id="1_btw8h"]
-[ext_resource type="Script" uid="uid://gw354ruxxjgr" path="res://assets/world/main.gd" id="1_p0te5"]
+[ext_resource type="Script" uid="uid://cax8inqgk1gka" path="res://assets/world/world.gd" id="1_p0te5"]
 [ext_resource type="PackedScene" uid="uid://djljcsbd0b42u" path="res://ui/pause_menu.tscn" id="3_p0te5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0hol4"]
 size = Vector2(128, 128)
 
-[node name="World" type="Node2D"]
+[node name="World" type="Node2D" groups=["World"]]
 script = ExtResource("1_p0te5")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(512, 529)
+position = Vector2(21, 221)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
@@ -21,7 +21,7 @@ shape = SubResource("RectangleShape2D_0hol4")
 texture = ExtResource("1_btw8h")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2(640, 529)
+position = Vector2(149, 221)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
@@ -31,7 +31,7 @@ shape = SubResource("RectangleShape2D_0hol4")
 texture = ExtResource("1_btw8h")
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
-position = Vector2(768, 529)
+position = Vector2(277, 221)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
@@ -41,7 +41,7 @@ shape = SubResource("RectangleShape2D_0hol4")
 texture = ExtResource("1_btw8h")
 
 [node name="StaticBody2D4" type="StaticBody2D" parent="."]
-position = Vector2(384, 529)
+position = Vector2(-107, 221)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
@@ -51,7 +51,7 @@ shape = SubResource("RectangleShape2D_0hol4")
 texture = ExtResource("1_btw8h")
 
 [node name="StaticBody2D5" type="StaticBody2D" parent="."]
-position = Vector2(256, 529)
+position = Vector2(-235, 221)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D5"]
@@ -61,7 +61,7 @@ shape = SubResource("RectangleShape2D_0hol4")
 texture = ExtResource("1_btw8h")
 
 [node name="StaticBody2D6" type="StaticBody2D" parent="."]
-position = Vector2(808, 419)
+position = Vector2(317, 111)
 scale = Vector2(1.59721, 0.458899)
 metadata/_edit_group_ = true
 
@@ -72,7 +72,7 @@ shape = SubResource("RectangleShape2D_0hol4")
 texture = ExtResource("1_btw8h")
 
 [node name="StaticBody2D7" type="StaticBody2D" parent="."]
-position = Vector2(1014, 322)
+position = Vector2(523, 14)
 scale = Vector2(1.59721, 0.458899)
 metadata/_edit_group_ = true
 
@@ -83,7 +83,7 @@ shape = SubResource("RectangleShape2D_0hol4")
 texture = ExtResource("1_btw8h")
 
 [node name="StaticBody2D8" type="StaticBody2D" parent="."]
-position = Vector2(1254, 234)
+position = Vector2(763, -74)
 scale = Vector2(1.59721, 0.458899)
 metadata/_edit_group_ = true
 
@@ -96,3 +96,4 @@ texture = ExtResource("1_btw8h")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("3_p0te5")]
+metadata/_edit_use_anchors_ = true

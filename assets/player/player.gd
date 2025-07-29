@@ -8,6 +8,9 @@ var id
 
 func _ready() -> void:
 	print("player spawned")
+	
+	if is_multiplayer_authority():
+		$Camera2D.make_current()
 
 func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():

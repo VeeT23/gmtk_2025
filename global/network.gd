@@ -13,6 +13,8 @@ func create_server():
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 	print("Server started on port %d" % port)
+	
+	spawn_player(multiplayer.get_unique_id())
 
 func join_server(ip: String):
 	var peer = ENetMultiplayerPeer.new()
