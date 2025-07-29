@@ -6,6 +6,9 @@ const JUMP_VELOCITY = -500.0
 
 var id
 
+func _ready() -> void:
+	print("player spawned")
+
 func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():
 		# Apply gravity
