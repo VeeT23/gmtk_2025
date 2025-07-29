@@ -9,6 +9,7 @@ const button_size : Rect2 = Rect2(-46,-12,92,24)
 @onready var load_button : Sprite2D = $LoadButton
 @onready var options_button : Sprite2D = $OptionsButton
 @onready var quit_button : Sprite2D = $QuitButton
+@onready var join_button : Sprite2D = $JoinButton
 @onready var animation_player : AnimationPlayer = $CanvasLayer/Overlay/Fade/AnimationPlayer
 
 func _ready() -> void:
@@ -25,6 +26,7 @@ func _input(event: InputEvent) -> void:
 			animation_player.play("fade_out")
 			await get_tree().create_timer(transition_time).timeout
 			get_tree().change_scene_to_file(main_scene_path)
+			Network.create_server()
 		elif is_mouse_over_button(load_button, mouse_position):
 			load_button.frame_coords.x = 2 #TODO: add load feature
 		elif is_mouse_over_button(options_button,mouse_position):
@@ -34,6 +36,9 @@ func _input(event: InputEvent) -> void:
 			animation_player.play("fade_out")
 			await get_tree().create_timer(transition_time).timeout
 			get_tree().quit()
+		elif is_mouse_over_button(join_button, mouse_position):
+			Network.join_server($CanvasLayer/Overlay/TextEdit.text)
+		
 		
 	elif event is InputEventMouseMotion:
 		for button in [start_button, load_button, options_button, quit_button]:
