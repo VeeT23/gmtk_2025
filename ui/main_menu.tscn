@@ -42,7 +42,7 @@ _data = {
 &"fade_out": ExtResource("3_wk0pr")
 }
 
-[node name="MainMenu" type="Node2D"]
+[node name="MainMenu" type="Node2D" groups=["World"]]
 texture_filter = 1
 script = ExtResource("1_t7e0r")
 

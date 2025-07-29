@@ -1,13 +1,14 @@
 [gd_scene load_steps=5 format=3 uid="uid://b7jiphcimusao"]
 
 [ext_resource type="Texture2D" uid="uid://djgvq6j03md4n" path="res://icon.svg" id="1_btw8h"]
-[ext_resource type="PackedScene" uid="uid://ddbxenocco7fj" path="res://assets/player/player.tscn" id="2_p0te5"]
+[ext_resource type="Script" uid="uid://gw354ruxxjgr" path="res://assets/world/main.gd" id="1_p0te5"]
 [ext_resource type="PackedScene" uid="uid://djljcsbd0b42u" path="res://ui/pause_menu.tscn" id="3_p0te5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0hol4"]
 size = Vector2(128, 128)
 
 [node name="World" type="Node2D"]
+script = ExtResource("1_p0te5")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(512, 529)
@@ -18,9 +19,6 @@ shape = SubResource("RectangleShape2D_0hol4")
 
 [node name="Icon" type="Sprite2D" parent="StaticBody2D"]
 texture = ExtResource("1_btw8h")
-
-[node name="Player" parent="." instance=ExtResource("2_p0te5")]
-position = Vector2(629, 339)
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 position = Vector2(640, 529)
