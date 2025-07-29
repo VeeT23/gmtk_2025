@@ -10,5 +10,5 @@ func spawn_player(id: int):
 func remove_player(id: int):
 	for child in get_children():
 		if child.is_in_group("Player"):
-			if child.id = id:
+			if child.id == id:
 				child.queue_free()
