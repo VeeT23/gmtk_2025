@@ -1,37 +1,97 @@
-[gd_scene load_steps=2 format=3 uid="uid://vipcrdkmew12"]
+[gd_scene load_steps=6 format=3 uid="uid://vipcrdkmew12"]
 
 [ext_resource type="Script" uid="uid://fosq7v5dfad4" path="res://ui/main_menu.gd" id="1_t7e0r"]
+[ext_resource type="Texture2D" uid="uid://dgvfnrb0htcx" path="res://ui/sprites/buttons.png" id="2_0dkrt"]
 
-[node name="MainMenu" type="Control"]
+[sub_resource type="Animation" id="Animation_0dkrt"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0666667, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_wk0pr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rmr83"]
+_data = {
+&"RESET": SubResource("Animation_wk0pr"),
+&"fade_out": SubResource("Animation_0dkrt")
+}
+
+[node name="MainMenu" type="Node2D"]
 texture_filter = 1
+script = ExtResource("1_t7e0r")
+
+[node name="StartButton" type="Sprite2D" parent="."]
+texture = ExtResource("2_0dkrt")
+hframes = 3
+vframes = 4
+
+[node name="LoadButton" type="Sprite2D" parent="."]
+position = Vector2(0, 34)
+texture = ExtResource("2_0dkrt")
+hframes = 3
+vframes = 4
+frame = 3
+
+[node name="OptionsButton" type="Sprite2D" parent="."]
+position = Vector2(0, 70)
+texture = ExtResource("2_0dkrt")
+hframes = 3
+vframes = 4
+frame = 6
+
+[node name="QuitButton" type="Sprite2D" parent="."]
+position = Vector2(0, 106)
+texture = ExtResource("2_0dkrt")
+hframes = 3
+vframes = 4
+frame = 9
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, 52)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Overlay" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_t7e0r")
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="Fade" type="ColorRect" parent="CanvasLayer/Overlay"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0, 0, 0, 0)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-alignment = 1
-
-[node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer"]
-layout_mode = 2
-text = "Start"
-
-[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer"]
-layout_mode = 2
-text = "Quit"
-
-[connection signal="pressed" from="CenterContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Overlay/Fade"]
+libraries = {
+&"": SubResource("AnimationLibrary_rmr83")
+}
