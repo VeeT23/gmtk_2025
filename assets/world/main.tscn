@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b7jiphcimusao"]
+[gd_scene load_steps=9 format=3 uid="uid://b7jiphcimusao"]
 
 [ext_resource type="Texture2D" uid="uid://djgvq6j03md4n" path="res://icon.svg" id="1_btw8h"]
 [ext_resource type="Script" uid="uid://cax8inqgk1gka" path="res://assets/world/world.gd" id="1_p0te5"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d4d4cs2mfqja2" path="res://ui/fade_in.tscn" id="4_pkxt2"]
 [ext_resource type="PackedScene" uid="uid://bywg6lhar3v55" path="res://ui/inventory.tscn" id="5_x3ab4"]
 [ext_resource type="PackedScene" uid="uid://dhws20vvfl808" path="res://assets/loot/loot.tscn" id="6_4dexl"]
+[ext_resource type="PackedScene" uid="uid://dknmk1mh4kw7r" path="res://assets/enemy/enemy.tscn" id="7_rxmnn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0hol4"]
 size = Vector2(128, 128)
@@ -107,3 +108,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Loot" parent="." instance=ExtResource("6_4dexl")]
 position = Vector2(-404, -175)
+
+[node name="Enemy" parent="." instance=ExtResource("7_rxmnn")]
+position = Vector2(319, -250)
