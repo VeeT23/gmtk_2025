@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://vipcrdkmew12"]
+[gd_scene load_steps=9 format=3 uid="uid://vipcrdkmew12"]
 
 [ext_resource type="Script" uid="uid://fosq7v5dfad4" path="res://ui/main_menu.gd" id="1_t7e0r"]
 [ext_resource type="FontFile" uid="uid://dkv61ofdcd0ae" path="res://ui/font/prstartk.ttf" id="3_8uxxo"]
 [ext_resource type="PackedScene" uid="uid://bvoqo3s7r1ftd" path="res://ui/button/button.tscn" id="3_rmr83"]
 [ext_resource type="Animation" uid="uid://dhwym8avp4g0m" path="res://ui/fade_out.res" id="3_wk0pr"]
+[ext_resource type="Texture2D" uid="uid://cvfajoevvvi7v" path="res://ui/sprites/C7FA09AC-C54E-4432-B424-232301A644E1.PNG" id="5_8uxxo"]
 
 [sub_resource type="Animation" id="Animation_wk0pr"]
 length = 0.001
@@ -125,6 +126,11 @@ color = Color(0, 0, 0, 0)
 libraries = {
 &"": SubResource("AnimationLibrary_rmr83")
 }
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0.687467, 0.499992)
+scale = Vector2(0.158051, 0.092041)
+texture = ExtResource("5_8uxxo")
 
 [connection signal="pressed" from="CanvasLayer/Menus/Main/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Menus/Main/QuitButton" to="." method="_on_quit_button_pressed"]

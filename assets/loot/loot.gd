@@ -6,6 +6,7 @@ var loot_contents = {
 }
 
 func _input(event: InputEvent) -> void:
+	if looted: return
 	if event.is_action_pressed("interact"):
 		for body in $Area2D.get_overlapping_bodies():
 			if body.is_in_group("Player"):
