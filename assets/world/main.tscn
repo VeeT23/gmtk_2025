@@ -1,101 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://b7jiphcimusao"]
+[gd_scene load_steps=8 format=3 uid="uid://b7jiphcimusao"]
 
-[ext_resource type="Texture2D" uid="uid://djgvq6j03md4n" path="res://icon.svg" id="1_btw8h"]
 [ext_resource type="Script" uid="uid://cax8inqgk1gka" path="res://assets/world/world.gd" id="1_p0te5"]
 [ext_resource type="PackedScene" uid="uid://djljcsbd0b42u" path="res://ui/pause_menu.tscn" id="3_p0te5"]
 [ext_resource type="PackedScene" uid="uid://d4d4cs2mfqja2" path="res://ui/fade_in.tscn" id="4_pkxt2"]
 [ext_resource type="PackedScene" uid="uid://bywg6lhar3v55" path="res://ui/inventory.tscn" id="5_x3ab4"]
 [ext_resource type="PackedScene" uid="uid://dhws20vvfl808" path="res://assets/loot/loot.tscn" id="6_4dexl"]
+[ext_resource type="PackedScene" uid="uid://bli273ye8sf6a" path="res://assets/world/tree/tree.tscn" id="7_7j6ot"]
 [ext_resource type="PackedScene" uid="uid://dknmk1mh4kw7r" path="res://assets/enemy/enemy.tscn" id="7_rxmnn"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0hol4"]
-size = Vector2(128, 128)
 
 [node name="World" type="Node2D" groups=["World"]]
 script = ExtResource("1_p0te5")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(21, 221)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource("RectangleShape2D_0hol4")
-
-[node name="Icon" type="Sprite2D" parent="StaticBody2D"]
-texture = ExtResource("1_btw8h")
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2(149, 221)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
-shape = SubResource("RectangleShape2D_0hol4")
-
-[node name="Icon" type="Sprite2D" parent="StaticBody2D2"]
-texture = ExtResource("1_btw8h")
-
-[node name="StaticBody2D3" type="StaticBody2D" parent="."]
-position = Vector2(277, 221)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
-shape = SubResource("RectangleShape2D_0hol4")
-
-[node name="Icon" type="Sprite2D" parent="StaticBody2D3"]
-texture = ExtResource("1_btw8h")
-
-[node name="StaticBody2D4" type="StaticBody2D" parent="."]
-position = Vector2(-107, 221)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
-shape = SubResource("RectangleShape2D_0hol4")
-
-[node name="Icon" type="Sprite2D" parent="StaticBody2D4"]
-texture = ExtResource("1_btw8h")
-
-[node name="StaticBody2D5" type="StaticBody2D" parent="."]
-position = Vector2(-235, 221)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D5"]
-shape = SubResource("RectangleShape2D_0hol4")
-
-[node name="Icon" type="Sprite2D" parent="StaticBody2D5"]
-texture = ExtResource("1_btw8h")
-
-[node name="StaticBody2D6" type="StaticBody2D" parent="."]
-position = Vector2(317, 111)
-scale = Vector2(1.59721, 0.458899)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D6"]
-shape = SubResource("RectangleShape2D_0hol4")
-
-[node name="Icon" type="Sprite2D" parent="StaticBody2D6"]
-texture = ExtResource("1_btw8h")
-
-[node name="StaticBody2D7" type="StaticBody2D" parent="."]
-position = Vector2(523, 14)
-scale = Vector2(1.59721, 0.458899)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D7"]
-shape = SubResource("RectangleShape2D_0hol4")
-
-[node name="Icon" type="Sprite2D" parent="StaticBody2D7"]
-texture = ExtResource("1_btw8h")
-
-[node name="StaticBody2D8" type="StaticBody2D" parent="."]
-position = Vector2(763, -74)
-scale = Vector2(1.59721, 0.458899)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D8"]
-shape = SubResource("RectangleShape2D_0hol4")
-
-[node name="Icon" type="Sprite2D" parent="StaticBody2D8"]
-texture = ExtResource("1_btw8h")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -111,3 +25,15 @@ position = Vector2(-404, -175)
 
 [node name="Enemy" parent="." instance=ExtResource("7_rxmnn")]
 position = Vector2(319, -250)
+
+[node name="Tree" parent="." instance=ExtResource("7_7j6ot")]
+position = Vector2(-632, -202)
+
+[node name="Tree2" parent="." instance=ExtResource("7_7j6ot")]
+position = Vector2(-292, -268)
+
+[node name="Tree3" parent="." instance=ExtResource("7_7j6ot")]
+position = Vector2(-257, 378)
+
+[node name="Tree4" parent="." instance=ExtResource("7_7j6ot")]
+position = Vector2(-644, 192)
