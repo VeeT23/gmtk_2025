@@ -7,6 +7,8 @@
 size = Vector2(128, 128)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_layer = 2
+collision_mask = 33
 script = ExtResource("1_onrkg")
 metadata/_edit_group_ = true
 
@@ -17,3 +19,4 @@ shape = SubResource("RectangleShape2D_0hol4")
 texture = ExtResource("2_i3pqv")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)

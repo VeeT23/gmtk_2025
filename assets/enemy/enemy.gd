@@ -1,42 +1,36 @@
 extends CharacterBody2D
 
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -500.0
+const SPEED = 200.0
 
-var player_nodes = get_tree().get_nodes_in_group("Player")
+var target_player : CharacterBody2D = null
 
-func get_closest_player():
-	var closest_position
-	for player in player_nodes:
-		if position.distance_to(player.position) < position.distance_to(closest_position):
-		
-	return closest_position
-var id
-
-func _ready() -> void:
-	print("player spawned")
-	
-	if is_multiplayer_authority():
-		$Camera2D.make_current()
-
-func _physics_process(delta: float) -> void:
+func get_closest_player() -> CharacterBody2D:
 	if not is_multiplayer_authority(): return
+	var player_nodes = get_tree().get_nodes_in_group("Player")
+	if player_nodes.is_empty():
+		return null
 	
+	var closest_player: CharacterBody2D = null
+	var min_distance := INF
+	for player in player_nodes:
+		if not player is CharacterBody2D:
+			continue
+		var dist = position.distance_to(player.position)
+		if dist < min_distance:
+			min_distance = dist
+			closest_player = player
 	
-	var direction : Vector2 = Vector2(Input.get_axis("left", "right"),Input.get_axis("up", "down") )
-	if direction.x:
-		velocity.x = direction.x * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+	return closest_player
+
+func _physics_process(_delta: float) -> void:
+	target_player = get_closest_player()
+	if not target_player: return
 	
-	if direction.y:
-		velocity.y = direction.y * SPEED
-	else:
-		velocity.y = move_toward(velocity.y, 0, SPEED)
-	
-	# Apply motion and sync position to others
+	var direction = (target_player.global_position - global_position).normalized()
+	velocity = direction * SPEED
 	move_and_slide()
+	
 	rpc("sync_position", global_position)
 
 
