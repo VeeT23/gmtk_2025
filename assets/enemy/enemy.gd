@@ -4,6 +4,14 @@ extends CharacterBody2D
 const SPEED = 300.0
 const JUMP_VELOCITY = -500.0
 
+var player_nodes = get_tree().get_nodes_in_group("Player")
+
+func get_closest_player():
+	var closest_position
+	for player in player_nodes:
+		if position.distance_to(player.position) < position.distance_to(closest_position):
+		
+	return closest_position
 var id
 
 func _ready() -> void:
