@@ -11,7 +11,6 @@ func _input(event: InputEvent) -> void:
 			if body.is_in_group("Player"):
 				if body.is_multiplayer_authority():
 					for item in loot_contents.keys():
-						print(get_tree().get_root().get_tree_string_pretty())
 						get_tree().get_root().get_node("World/CanvasLayer/Inventory").inventory[item] += loot_contents[item]
 						get_tree().get_root().get_node("World/CanvasLayer/Inventory").update_item_list()
 				looted = true
