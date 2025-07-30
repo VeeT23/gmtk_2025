@@ -16,7 +16,17 @@ func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority(): return
 	
 	
-	var direction : Vector2 = Vector2(Input.get_axis("left", "right"),Input.get_axis("up", "down") )
+	var direction : Vector2 = Vector2(Input.get_axis("left", "right"),Input.get_axis("up", "down"))
+	
+	if direction:
+		if direction.y < 0:
+			
+			if not $AnimationPlayer.is_playing() or $AnimationPlayer.assigned_animation != "walk_up":
+				$AnimationPlayer.play("walk_up")
+		elif direction.y > 0:
+			if not $AnimationPlayer.is_playing() or $AnimationPlayer.assigned_animation != "walk_down":
+				$AnimationPlayer.play("walk_down")
+	
 	if direction.x:
 		if direction.x > 0:
 			$Icon.flip_h = false
