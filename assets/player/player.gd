@@ -28,11 +28,6 @@ func _physics_process(_delta: float) -> void:
 				$AnimationPlayer.play("walk_down")
 	
 	if direction.x:
-		if direction.x > 0:
-			$Icon.flip_h = false
-		elif direction.x < 0:
-			$Icon.flip_h = true
-		
 		velocity.x = direction.x * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
@@ -42,7 +37,6 @@ func _physics_process(_delta: float) -> void:
 	else:
 		velocity.y = move_toward(velocity.y, 0, SPEED)
 	
-	# Apply motion and sync position to others
 	move_and_slide()
 	rpc("sync_position", global_position)
 

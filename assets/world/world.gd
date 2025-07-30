@@ -1,4 +1,7 @@
 extends Node2D
+
+var day_duration_minutes = 4.0
+
 var player_scene: PackedScene = preload("res://assets/player/player.tscn")
 
 var players := {}
@@ -11,6 +14,8 @@ func _ready() -> void:
 		Network.create_server()
 	else:
 		Network.join_server()
+	
+	$DayNightTimer.start(day_duration_minutes * 60.0)
 
 func spawn_player(id: int):
 	print("Spawning player with ID: ", id)
@@ -38,3 +43,6 @@ func remove_player(id: int):
 		print("Removing player: ", id)
 		players[id].queue_free()
 		players.erase(id)
+
+func _process(_delta: float) -> void:
+	pass
