@@ -30,6 +30,9 @@ func spawn_player(id: int):
 	
 	print("Player spawned: ", p.name, " at path: ", p.get_path())
 
+func reset_scene():
+	get_tree().call_group("Loot", "reset")
+
 func remove_player(id: int):
 	if players.has(id):
 		print("Removing player: ", id)

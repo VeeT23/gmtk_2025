@@ -31,6 +31,9 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 	rpc("sync_position", global_position)
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("reset_debug"):
+		get_tree().get_root().get_node("World").reset_scene()
 
 @rpc("any_peer")
 func sync_position(pos: Vector2):
