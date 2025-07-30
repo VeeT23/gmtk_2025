@@ -21,11 +21,11 @@ texture = ExtResource("2_o5tp1")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_enabled = true
+avoidance_layers = 3
+avoidance_mask = 3
 debug_enabled = true
+debug_path_custom_line_width = 9.43
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
 autostart = true
-
-[node name="Timer2" type="Timer" parent="."]
-
-[node name="Timer3" type="Timer" parent="."]

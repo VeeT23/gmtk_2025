@@ -63,7 +63,9 @@ func _physics_process(_delta: float) -> void:
 func _on_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
 	move_and_slide()
-	rpc("sync_position", global_position)
+
+	if multiplayer.multiplayer_peer and multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED:
+		rpc("sync_position", global_position)
 
 @rpc("any_peer")
 func sync_position(pos: Vector2) -> void:
