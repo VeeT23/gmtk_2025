@@ -1,19 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://ddbxenocco7fj"]
+[gd_scene load_steps=5 format=3 uid="uid://ddbxenocco7fj"]
 
 [ext_resource type="Script" uid="uid://b0yo5o0058id" path="res://assets/player/player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://dwikcmwiaasfm" path="res://png-clipart-terraria-super-mario-bros-super-mario-world-sprite-video-game-sprite-super-mario-bros-rectangle-3777570710.png" id="2_h6syq"]
+[ext_resource type="Texture2D" uid="uid://tlkwf5drgcoy" path="res://assets/player/FlashlightLightMask.png" id="3_v2miy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0hol4"]
 size = Vector2(128, 128)
-
-[sub_resource type="Gradient" id="Gradient_h6syq"]
-offsets = PackedFloat32Array(0.263844, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_v2miy"]
-gradient = SubResource("Gradient_h6syq")
-fill = 1
-fill_from = Vector2(1, 0.529915)
-fill_to = Vector2(0, 0.495726)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 2
@@ -32,7 +24,7 @@ texture = ExtResource("2_h6syq")
 zoom = Vector2(0.5, 0.5)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(155.5, 28.5)
-scale = Vector2(3.79688, 1.10938)
+position = Vector2(190.5, 21)
+scale = Vector2(2.38281, 1.03125)
 energy = 2.24
-texture = SubResource("GradientTexture2D_v2miy")
+texture = ExtResource("3_v2miy")
