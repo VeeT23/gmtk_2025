@@ -18,6 +18,11 @@ func _physics_process(_delta: float) -> void:
 	
 	var direction : Vector2 = Vector2(Input.get_axis("left", "right"),Input.get_axis("up", "down") )
 	if direction.x:
+		if direction.x > 0:
+			$Icon.flip_h = false
+		elif direction.x < 0:
+			$Icon.flip_h = true
+		
 		velocity.x = direction.x * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
