@@ -48,6 +48,7 @@ position = Vector2(-257, 378)
 position = Vector2(-644, 192)
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 [node name="Tree" parent="NavigationRegion2D" instance=ExtResource("7_7j6ot")]
 position = Vector2(-632, -202)
 
@@ -56,6 +57,9 @@ position = Vector2(-292, -268)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_rxmnn")
+=======
+[node name="DayNightTimer" type="Timer" parent="."]
+>>>>>>> Stashed changes
 =======
 [node name="DayNightTimer" type="Timer" parent="."]
 >>>>>>> Stashed changes
