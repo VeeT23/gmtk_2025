@@ -18,3 +18,14 @@ shape = SubResource("RectangleShape2D_0hol4")
 [node name="Icon" type="Sprite2D" parent="."]
 modulate = Color(1, 0, 0, 1)
 texture = ExtResource("2_o5tp1")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+debug_enabled = true
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="Timer2" type="Timer" parent="."]
+
+[node name="Timer3" type="Timer" parent="."]

@@ -8,6 +8,7 @@
 size = Vector2(128, 128)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
+position = Vector2(0, 2)
 collision_layer = 2
 collision_mask = 33
 script = ExtResource("1_onrkg")
@@ -23,8 +24,11 @@ texture = ExtResource("2_h6syq")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.5, 0.5)
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(190.5, 21)
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(0, 29)
+
+[node name="PointLight2D" type="PointLight2D" parent="Node2D"]
+position = Vector2(190.5, 0)
 scale = Vector2(2.38281, 1.03125)
 energy = 2.24
 texture = ExtResource("3_v2miy")

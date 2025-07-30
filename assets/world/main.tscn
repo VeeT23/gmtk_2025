@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b7jiphcimusao"]
+[gd_scene load_steps=10 format=3 uid="uid://b7jiphcimusao"]
 
 [ext_resource type="Script" uid="uid://cax8inqgk1gka" path="res://assets/world/world.gd" id="1_p0te5"]
 [ext_resource type="PackedScene" uid="uid://djljcsbd0b42u" path="res://ui/pause_menu.tscn" id="3_p0te5"]
@@ -7,6 +7,13 @@
 [ext_resource type="PackedScene" uid="uid://dhws20vvfl808" path="res://assets/loot/loot.tscn" id="6_4dexl"]
 [ext_resource type="PackedScene" uid="uid://bli273ye8sf6a" path="res://assets/world/tree/tree.tscn" id="7_7j6ot"]
 [ext_resource type="PackedScene" uid="uid://dknmk1mh4kw7r" path="res://assets/enemy/enemy.tscn" id="7_rxmnn"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_rxmnn"]
+vertices = PackedVector2Array(-2801.22, 1271.62, -3261.32, -2006.74, 2282.64, -1437.9, -10.9219, -8.04688, 2498.23, 1517.78, 7.00781, 1468.19, 9.00781, -7.95312, -22.9062, 1477.24)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 4, 5, 6), PackedInt32Array(3, 7, 0), PackedInt32Array(3, 2, 6)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-1, 2, -3, 1478, 2509, 1528, 2292, -1447, -3273, -2018, -2810, 1281, -13, 1488)])
+
+[sub_resource type="TileSet" id="TileSet_rxmnn"]
 
 [node name="World" type="Node2D" groups=["World"]]
 script = ExtResource("1_p0te5")
@@ -26,14 +33,20 @@ position = Vector2(-404, -175)
 [node name="Enemy" parent="." instance=ExtResource("7_rxmnn")]
 position = Vector2(319, -250)
 
-[node name="Tree" parent="." instance=ExtResource("7_7j6ot")]
-position = Vector2(-632, -202)
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_rxmnn")
 
-[node name="Tree2" parent="." instance=ExtResource("7_7j6ot")]
-position = Vector2(-292, -268)
-
-[node name="Tree3" parent="." instance=ExtResource("7_7j6ot")]
+[node name="Tree3" parent="NavigationRegion2D" instance=ExtResource("7_7j6ot")]
 position = Vector2(-257, 378)
 
-[node name="Tree4" parent="." instance=ExtResource("7_7j6ot")]
+[node name="Tree4" parent="NavigationRegion2D" instance=ExtResource("7_7j6ot")]
 position = Vector2(-644, 192)
+
+[node name="Tree" parent="NavigationRegion2D" instance=ExtResource("7_7j6ot")]
+position = Vector2(-632, -202)
+
+[node name="Tree2" parent="NavigationRegion2D" instance=ExtResource("7_7j6ot")]
+position = Vector2(-292, -268)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_rxmnn")
