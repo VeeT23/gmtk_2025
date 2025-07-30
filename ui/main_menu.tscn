@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://vipcrdkmew12"]
+[gd_scene load_steps=8 format=3 uid="uid://vipcrdkmew12"]
 
 [ext_resource type="Script" uid="uid://fosq7v5dfad4" path="res://ui/main_menu.gd" id="1_t7e0r"]
-[ext_resource type="Texture2D" uid="uid://dgvfnrb0htcx" path="res://ui/sprites/buttons.png" id="2_0dkrt"]
+[ext_resource type="FontFile" uid="uid://dkv61ofdcd0ae" path="res://ui/font/prstartk.ttf" id="3_8uxxo"]
+[ext_resource type="PackedScene" uid="uid://bvoqo3s7r1ftd" path="res://ui/button/button.tscn" id="3_rmr83"]
 [ext_resource type="Animation" uid="uid://dhwym8avp4g0m" path="res://ui/fade_out.res" id="3_wk0pr"]
 
 [sub_resource type="Animation" id="Animation_wk0pr"]
@@ -46,43 +47,60 @@ _data = {
 texture_filter = 1
 script = ExtResource("1_t7e0r")
 
-[node name="StartButton" type="Sprite2D" parent="."]
-texture = ExtResource("2_0dkrt")
-hframes = 3
-vframes = 4
-
-[node name="JoinButton" type="Sprite2D" parent="."]
-position = Vector2(2, -38)
-skew = 0.804597
-texture = ExtResource("2_0dkrt")
-hframes = 3
-vframes = 4
-
-[node name="LoadButton" type="Sprite2D" parent="."]
-position = Vector2(0, 34)
-texture = ExtResource("2_0dkrt")
-hframes = 3
-vframes = 4
-frame = 3
-
-[node name="OptionsButton" type="Sprite2D" parent="."]
-position = Vector2(0, 70)
-texture = ExtResource("2_0dkrt")
-hframes = 3
-vframes = 4
-frame = 6
-
-[node name="QuitButton" type="Sprite2D" parent="."]
-position = Vector2(0, 106)
-texture = ExtResource("2_0dkrt")
-hframes = 3
-vframes = 4
-frame = 9
-
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, 52)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Menus" type="CenterContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Main" type="VBoxContainer" parent="CanvasLayer/Menus"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="StartButton" parent="CanvasLayer/Menus/Main" instance=ExtResource("3_rmr83")]
+layout_mode = 2
+
+[node name="OptionsButton" parent="CanvasLayer/Menus/Main" instance=ExtResource("3_rmr83")]
+layout_mode = 2
+
+[node name="QuitButton" parent="CanvasLayer/Menus/Main" instance=ExtResource("3_rmr83")]
+layout_mode = 2
+
+[node name="Start" type="VBoxContainer" parent="CanvasLayer/Menus"]
+visible = false
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="NewButton" parent="CanvasLayer/Menus/Start" instance=ExtResource("3_rmr83")]
+layout_mode = 2
+
+[node name="LoadButton" parent="CanvasLayer/Menus/Start" instance=ExtResource("3_rmr83")]
+layout_mode = 2
+
+[node name="MultiplayerButton" parent="CanvasLayer/Menus/Start" instance=ExtResource("3_rmr83")]
+layout_mode = 2
+
+[node name="Join" type="HBoxContainer" parent="CanvasLayer/Menus"]
+visible = false
+layout_mode = 2
+
+[node name="AddressBox" type="LineEdit" parent="CanvasLayer/Menus/Join"]
+custom_minimum_size = Vector2(128, 32)
+layout_mode = 2
+theme_override_colors/font_placeholder_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_8uxxo")
+theme_override_font_sizes/font_size = 8
+placeholder_text = "Enter Ip"
+
+[node name="JoinButton" parent="CanvasLayer/Menus/Join" instance=ExtResource("3_rmr83")]
+layout_mode = 2
 
 [node name="Overlay" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -92,15 +110,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-
-[node name="TextEdit" type="LineEdit" parent="CanvasLayer/Overlay"]
-layout_mode = 0
-offset_left = 458.0
-offset_top = 100.0
-offset_right = 566.0
-offset_bottom = 132.0
-scale = Vector2(0.605, 0.605)
-placeholder_text = "IP Address"
 
 [node name="Fade" type="ColorRect" parent="CanvasLayer/Overlay"]
 layout_mode = 1
@@ -116,3 +125,9 @@ color = Color(0, 0, 0, 0)
 libraries = {
 &"": SubResource("AnimationLibrary_rmr83")
 }
+
+[connection signal="pressed" from="CanvasLayer/Menus/Main/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menus/Main/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menus/Start/NewButton" to="." method="_on_new_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menus/Start/MultiplayerButton" to="." method="_on_multiplayer_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menus/Join/JoinButton" to="." method="_on_join_button_pressed"]
