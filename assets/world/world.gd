@@ -1,6 +1,6 @@
 extends Node2D
 
-var day_duration_minutes = 4.0
+var day_duration_minutes = 0.25
 
 var player_scene: PackedScene = preload("res://assets/player/player.tscn")
 
@@ -14,7 +14,6 @@ func _ready() -> void:
 		Network.create_server()
 	else:
 		Network.join_server()
-	
 	$DayNightTimer.start(day_duration_minutes * 60.0)
 
 func spawn_player(id: int):
@@ -45,4 +44,4 @@ func remove_player(id: int):
 		players.erase(id)
 
 func _process(_delta: float) -> void:
-	pass
+	$DirectionalLight2D.color.a = remap($DayNightTimer.time_left, day_duration_minutes * 60.0,0.0,0.0,1.0)
