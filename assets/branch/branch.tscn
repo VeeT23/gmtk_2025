@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://edyhsxjythxd"]
 
-[ext_resource type="Script" path="res://assets/branch/branch.gd" id="1_sxbac"]
+[ext_resource type="Script" uid="uid://bwpqg1mi2nstc" path="res://assets/branch/branch.gd" id="1_sxbac"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_imuyo"]
 load_path = "res://.godot/imported/Branch.png-b51541481cfbdcb84978bddf27151475.ctex"

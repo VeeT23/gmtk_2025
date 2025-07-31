@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 
 const SPEED = 300.0
+var actual_speed = SPEED
 const JUMP_VELOCITY = -500.0
 
 var id
@@ -31,14 +32,14 @@ func _physics_process(_delta: float) -> void:
 				$AnimationPlayer.play("walk_down")
 	
 	if direction.x:
-		velocity.x = direction.x * SPEED
+		velocity.x = direction.x * actual_speed
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, actual_speed)
 	
 	if direction.y:
-		velocity.y = direction.y * SPEED
+		velocity.y = direction.y * actual_speed
 	else:
-		velocity.y = move_toward(velocity.y, 0, SPEED)
+		velocity.y = move_toward(velocity.y, 0, actual_speed)
 	
 	move_and_slide()
 	rpc("sync_position", global_position)

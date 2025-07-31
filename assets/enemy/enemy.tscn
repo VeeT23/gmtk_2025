@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://dknmk1mh4kw7r"]
+[gd_scene load_steps=5 format=3 uid="uid://dknmk1mh4kw7r"]
 
 [ext_resource type="Script" uid="uid://b0rihlkdq24ew" path="res://assets/enemy/enemy.gd" id="1_4nxta"]
 [ext_resource type="Texture2D" uid="uid://djgvq6j03md4n" path="res://icon.svg" id="2_o5tp1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0hol4"]
 size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4nxta"]
+size = Vector2(131, 130)
 
 [node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
 z_index = 1
@@ -29,5 +32,16 @@ debug_enabled = true
 debug_path_custom_line_width = 9.43
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 4.0
 autostart = true
+
+[node name="Hurt_Box" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurt_Box"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_4nxta")
+debug_color = Color(0.716004, 0.449734, 0.476738, 0.42)
+
+[connection signal="body_entered" from="Hurt_Box" to="." method="_on_hurt_box_body_entered"]
