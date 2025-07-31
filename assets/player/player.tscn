@@ -5,8 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://tlkwf5drgcoy" path="res://assets/player/FlashlightLightMask.png" id="3_v2miy"]
 [ext_resource type="AudioStream" uid="uid://y3lbcv64h6xd" path="res://sfx/heart_beat.ogg" id="4_ouxva"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0hol4"]
-size = Vector2(50, 149)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ouxva"]
+radius = 13.0
+height = 70.0
 
 [sub_resource type="Gradient" id="Gradient_v2miy"]
 offsets = PackedFloat32Array(0, 0.551948, 1)
@@ -75,17 +76,18 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
+z_index = 3
 collision_layer = 2
 collision_mask = 33
 script = ExtResource("1_onrkg")
-metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_0hol4")
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ouxva")
 
 [node name="Icon" type="Sprite2D" parent="."]
 texture_filter = 1
+position = Vector2(-3.55271e-15, -66)
 scale = Vector2(0.33, 0.33)
 texture = ExtResource("2_v2miy")
 hframes = 4
@@ -95,9 +97,10 @@ vframes = 2
 zoom = Vector2(0.33, 0.33)
 
 [node name="Node2D" type="Node2D" parent="."]
-position = Vector2(0, 29)
+position = Vector2(0, -66)
 
 [node name="PointLight2D" type="PointLight2D" parent="Node2D"]
+visible = false
 position = Vector2(340, 0)
 scale = Vector2(2.38281, 1.03125)
 energy = 4.0
@@ -105,7 +108,9 @@ texture = ExtResource("3_v2miy")
 texture_scale = 2.0
 
 [node name="Glow" type="PointLight2D" parent="Node2D"]
+visible = false
 z_index = 1
+position = Vector2(0, 5)
 texture = SubResource("GradientTexture2D_ouxva")
 texture_scale = 12.0
 
@@ -115,6 +120,7 @@ libraries = {
 }
 
 [node name="HeartBeat" type="AudioStreamPlayer2D" parent="."]
+visible = false
 stream = ExtResource("4_ouxva")
 autoplay = true
 parameters/looping = true

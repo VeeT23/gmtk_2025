@@ -1,6 +1,6 @@
 extends Node2D
 
-var day_duration_minutes = 0.25
+var day_duration_minutes = 2
 
 var player_scene: PackedScene = preload("res://assets/player/player.tscn")
 
