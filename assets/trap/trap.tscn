@@ -1,31 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://bp5lhdhyen4ds"]
+[gd_scene load_steps=4 format=3 uid="uid://bp5lhdhyen4ds"]
 
 [ext_resource type="Script" uid="uid://uoniyr8acg86" path="res://assets/trap/trap.gd" id="1_vbb1f"]
-[ext_resource type="Texture2D" uid="uid://c0xxwe4kotgjb" path="res://assets/trap/EROuf61UUAEvy77.png" id="2_28kfd"]
-[ext_resource type="Texture2D" uid="uid://c08rd355afdhx" path="res://assets/trap/EROuf6rUYAAadNe.png" id="3_uvgkn"]
-[ext_resource type="Texture2D" uid="uid://cwuvt444ttgk" path="res://assets/trap/EROuf6sVAAAP3ft.png" id="4_fx1sn"]
+[ext_resource type="Texture2D" uid="uid://cm2tvq5yraiiq" path="res://assets/trap/BearTrap.png" id="2_q4mdr"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bu8fi"]
-size = Vector2(262, 56)
+[sub_resource type="CircleShape2D" id="CircleShape2D_q4mdr"]
+radius = 29.0172
 
 [node name="Trap" type="Area2D"]
 collision_layer = 16
 collision_mask = 4
 script = ExtResource("1_vbb1f")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_28kfd")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 114)
-shape = SubResource("RectangleShape2D_bu8fi")
+shape = SubResource("CircleShape2D_q4mdr")
 
-[node name="Frame2" type="Sprite2D" parent="."]
-visible = false
-texture = ExtResource("3_uvgkn")
-
-[node name="Frame3" type="Sprite2D" parent="."]
-visible = false
-texture = ExtResource("4_fx1sn")
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(5, 5)
+texture = ExtResource("2_q4mdr")
+hframes = 2
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

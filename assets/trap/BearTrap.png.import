@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c08rd355afdhx"
-path="res://.godot/imported/EROuf6rUYAAadNe.png-d99deb54b79ff15ae96d604685c4e0ff.ctex"
+uid="uid://cm2tvq5yraiiq"
+path="res://.godot/imported/BearTrap.png-536da65cf7b39d5f665248196fb49254.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/trap/EROuf6rUYAAadNe.png"
-dest_files=["res://.godot/imported/EROuf6rUYAAadNe.png-d99deb54b79ff15ae96d604685c4e0ff.ctex"]
+source_file="res://assets/trap/BearTrap.png"
+dest_files=["res://.godot/imported/BearTrap.png-536da65cf7b39d5f665248196fb49254.ctex"]
 
 [params]
 

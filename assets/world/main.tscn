@@ -116,6 +116,5 @@ position = Vector2(-312, -64)
 
 [node name="Branch" parent="." instance=ExtResource("10_s8a52")]
 position = Vector2(-1664, 694)
-scale = Vector2(2.77, 2.77)
 
 [connection signal="timeout" from="DayNightTimer" to="." method="_on_day_night_timer_timeout"]
