@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 const SPEED: float = 200.0
-
+#halo
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 var target_player: CharacterBody2D = null
 
