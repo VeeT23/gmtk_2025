@@ -45,4 +45,4 @@ func remove_player(id: int):
 		players.erase(id)
 
 func _process(_delta: float) -> void:
-	$DirectionalLight2D.color.a = remap($DayNightTimer.time_left, day_duration_minutes * 60,0,0,1)
+	$GlobalIllumination.color.a = remap($DayNightTimer.time_left, day_duration_minutes * 60,0,0,1)
