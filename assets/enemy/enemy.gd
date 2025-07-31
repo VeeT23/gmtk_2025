@@ -4,10 +4,19 @@ const SPEED: float = 200.0
 
 var actual_speed: float = SPEED
 
+var rng = RandomNumberGenerator.new()
+
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 var target_player: CharacterBody2D = null
 
+var starting_pos: Vector2 = Vector2.ZERO
+var inactive = false
+var roaming = true
+var targeting = false
+
 func _ready() -> void:
+	rng.randomize()
+	starting_pos = global_position
 	$Timer.timeout.connect(_on_timer_timeout)
 	nav_agent.velocity_computed.connect(_on_velocity_computed)
 	nav_agent.target_reached.connect(_on_target_reached)
@@ -30,15 +39,20 @@ func get_closest_player() -> CharacterBody2D:
 	return closest
 
 func makepath() -> void:
-	target_player = get_closest_player()
-	
-	if target_player:
-		nav_agent.target_position = target_player.global_position
-		if global_position.distance_to(target_player.global_position) <= 800 and actual_speed:
-			actual_speed = SPEED * 2
-		else:
-			if actual_speed:
-				actual_speed = SPEED
+	if roaming: 
+		#Create ranom point 
+		var target_position: Vector2 = global_position + Vector2(rng.randi_range(-5000,5000),rng.randi_range(-5000,5000))
+		nav_agent.target_position = Vector2(clamp(target_position.x, -28000, 31000), clamp(target_position.y, -15000, 15000))
+	elif targeting:
+		
+		target_player = get_closest_player()
+		if target_player:
+			nav_agent.target_position = target_player.global_position
+			if global_position.distance_to(target_player.global_position) <= 800 and actual_speed:
+				actual_speed = SPEED * 2
+			else:
+				if actual_speed:
+					actual_speed = SPEED
 
 func _on_timer_timeout() -> void:
 	makepath()
@@ -53,7 +67,9 @@ func _physics_process(_delta: float) -> void:
 	if nav_agent.is_navigation_finished():
 		velocity = Vector2.ZERO
 		return
-	
+	if inactive: 
+		nav_agent.set_velocity(Vector2.ZERO)
+		return
 	var next_pos: Vector2 = nav_agent.get_next_path_position()
 	var desired_velocity: Vector2 = (next_pos - global_position).normalized() * actual_speed
 	print(desired_velocity)
@@ -68,6 +84,26 @@ func _on_velocity_computed(safe_velocity: Vector2) -> void:
 
 	if multiplayer.multiplayer_peer and multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED:
 		rpc("sync_position", global_position)
+
+func goto(pos):
+	pass
+
+func _on_hurt_box_body_entered(body: Node2D) -> void:
+	if not body.is_multiplayer_authority(): return
+	if not body.is_in_group("Player"): return
+	if inactive: return
+	get_tree().get_root().get_node("World/CanvasLayer/JumpScare").jump_scare()
+	body.actual_speed = 0
+	body.global_position = Vector2.ZERO
+	visible = false
+	inactive = true
+	await get_tree().create_timer(1).timeout
+	body.actual_speed = body.SPEED
+	global_position = starting_pos
+	await get_tree().create_timer(10).timeout
+	visible = true
+	inactive = false
+	
 
 @rpc("any_peer")
 func sync_position(pos: Vector2) -> void:

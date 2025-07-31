@@ -89,7 +89,7 @@ tile_set = SubResource("TileSet_7j6ot")
 metadata/_edit_lock_ = true
 
 [node name="Enemy" parent="." instance=ExtResource("8_gc4wl")]
-position = Vector2(-2209, -407)
+position = Vector2(130, -364)
 
 [node name="Trees" type="Node2D" parent="."]
 
