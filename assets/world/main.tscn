@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://b7jiphcimusao"]
+[gd_scene load_steps=16 format=4 uid="uid://b7jiphcimusao"]
 
 [ext_resource type="Script" uid="uid://cax8inqgk1gka" path="res://assets/world/world.gd" id="1_p0te5"]
 [ext_resource type="PackedScene" uid="uid://djljcsbd0b42u" path="res://ui/pause_menu.tscn" id="3_p0te5"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dhqcyqkbsvsvp" path="res://assets/world/KeepOutTile.png" id="8_7j6ot"]
 [ext_resource type="PackedScene" uid="uid://dknmk1mh4kw7r" path="res://assets/enemy/enemy.tscn" id="8_gc4wl"]
 [ext_resource type="PackedScene" uid="uid://dhws20vvfl808" path="res://assets/loot/loot.tscn" id="9_gc4wl"]
+[ext_resource type="PackedScene" uid="uid://edyhsxjythxd" path="res://assets/branch/branch.tscn" id="10_s8a52"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_7j6ot"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -112,5 +113,9 @@ position = Vector2(-898, 735)
 
 [node name="Loot" parent="." instance=ExtResource("9_gc4wl")]
 position = Vector2(-312, -64)
+
+[node name="Branch" parent="." instance=ExtResource("10_s8a52")]
+position = Vector2(-1664, 694)
+scale = Vector2(2.77, 2.77)
 
 [connection signal="timeout" from="DayNightTimer" to="." method="_on_day_night_timer_timeout"]
