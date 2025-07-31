@@ -1,7 +1,9 @@
 [gd_scene load_steps=4 format=3 uid="uid://edyhsxjythxd"]
 
-[ext_resource type="Texture2D" uid="uid://cqmwt5c36bovl" path="res://assets/branch/Branch.png" id="1_imuyo"]
-[ext_resource type="Script" uid="uid://bwpqg1mi2nstc" path="res://assets/branch/branch.gd" id="1_sxbac"]
+[ext_resource type="Script" path="res://assets/branch/branch.gd" id="1_sxbac"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_imuyo"]
+load_path = "res://.godot/imported/Branch.png-b51541481cfbdcb84978bddf27151475.ctex"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sxbac"]
 radius = 114.001
@@ -15,7 +17,7 @@ script = ExtResource("1_sxbac")
 texture_filter = 1
 position = Vector2(-16, 4)
 scale = Vector2(5, 5)
-texture = ExtResource("1_imuyo")
+texture = SubResource("CompressedTexture2D_imuyo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -0.5)

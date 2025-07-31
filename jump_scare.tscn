@@ -1,0 +1,74 @@
+[gd_scene load_steps=6 format=3 uid="uid://dp5rmf147uk3x"]
+
+[ext_resource type="Script" uid="uid://drsn4twnhb5hd" path="res://jump_scare.gd" id="1_dksh2"]
+[ext_resource type="Texture2D" uid="uid://bx5junvax3mul" path="res://ui/zng30jl8grb91-657739585.jpg" id="1_kdroj"]
+
+[sub_resource type="Animation" id="Animation_dksh2"]
+resource_name = "jump_scare"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ScaryFace:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.266667, 0.933333, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_ncf7c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ScaryFace:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3251x"]
+_data = {
+&"RESET": SubResource("Animation_ncf7c"),
+&"jump_scare": SubResource("Animation_dksh2")
+}
+
+[node name="JumpScare" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dksh2")
+
+[node name="ScaryFace" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="ScaryFace"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_kdroj")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_3251x")
+}
