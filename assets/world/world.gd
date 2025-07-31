@@ -3,14 +3,18 @@ extends Node2D
 const DAY_DURATION_MINUTES : float = 1.0
 
 const PLAYER_SCENE : PackedScene = preload("res://assets/player/player.tscn")
+const TWIG_SCENE : PackedScene = preload("res://assets/twig/twig.tscn")
 
+@onready var terrain_tilemap: TileMapLayer = $Terrain
+
+var rng = RandomNumberGenerator.new()
 var players := {}
 
 var current_day : int = 1
 
 func _ready() -> void:
-	# Add this node to a group for easier access
-	add_to_group("World")
+	rng.randomize()
+	place_twigs()
 	
 	if Network.is_hosting:
 		Network.create_server()
@@ -51,3 +55,17 @@ func _process(_delta: float) -> void:
 
 func _on_day_night_timer_timeout() -> void:
 	$CanvasLayer/Announcement.announce("Night " + str(current_day))
+
+func place_twigs():
+	var used_cells = terrain_tilemap.get_used_cells_by_id(1)
+	for cell in used_cells:
+		if rng.randf() < 0.5:
+			add_twig(cell)
+
+func add_twig(pos: Vector2):
+	var twig = TWIG_SCENE.instantiate()
+	var tile_size = terrain_tilemap.tile_set.tile_size.x
+	var real_pos = pos * terrain_tilemap.scale.x * tile_size
+	var offset_pos = Vector2(rng.randi_range(-tile_size / 2, tile_size / 2),rng.randi_range(-tile_size / 2, tile_size / 2))
+	twig.global_position = offset_pos + real_pos
+	add_child(twig)

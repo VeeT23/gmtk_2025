@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dvgjq1vn53flc"]
+
+[ext_resource type="Script" uid="uid://c5de8oad2w1kn" path="res://assets/twig/twig.gd" id="1_h6k0t"]
+[ext_resource type="Texture2D" uid="uid://do836pcnpxu6o" path="res://assets/twig/Twig.png" id="2_mjobt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8v64i"]
+radius = 18.0278
+
+[node name="Twig" type="Area2D" groups=["Disposable"]]
+script = ExtResource("1_h6k0t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8v64i")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(5, 5)
+texture = ExtResource("2_mjobt")
+hframes = 2
+vframes = 2
