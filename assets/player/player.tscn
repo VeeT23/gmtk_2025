@@ -6,7 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://y3lbcv64h6xd" path="res://sfx/heart_beat.ogg" id="4_ouxva"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0hol4"]
-size = Vector2(50, 138)
+size = Vector2(50, 149)
 
 [sub_resource type="Gradient" id="Gradient_v2miy"]
 offsets = PackedFloat32Array(0, 0.551948, 1)
@@ -81,7 +81,7 @@ script = ExtResource("1_onrkg")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -5)
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_0hol4")
 
 [node name="Icon" type="Sprite2D" parent="."]
@@ -92,7 +92,7 @@ hframes = 4
 vframes = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.25, 0.25)
+zoom = Vector2(0.33, 0.33)
 
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(0, 29)
