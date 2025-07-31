@@ -107,3 +107,5 @@ position = Vector2(-1119, 554)
 
 [node name="Tree6" parent="Trees" instance=ExtResource("7_7j6ot")]
 position = Vector2(-854, 750)
+
+[connection signal="timeout" from="DayNightTimer" to="." method="_on_day_night_timer_timeout"]

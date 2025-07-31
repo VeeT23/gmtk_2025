@@ -1,10 +1,12 @@
 extends Node2D
 
-var day_duration_minutes = 2
+const DAY_DURATION_MINUTES : float = 1.0
 
-var player_scene: PackedScene = preload("res://assets/player/player.tscn")
+const PLAYER_SCENE : PackedScene = preload("res://assets/player/player.tscn")
 
 var players := {}
+
+var current_day : int = 1
 
 func _ready() -> void:
 	# Add this node to a group for easier access
@@ -15,7 +17,7 @@ func _ready() -> void:
 	else:
 		Network.join_server()
 	
-	$DayNightTimer.start(day_duration_minutes * 60.0)
+	$DayNightTimer.start(DAY_DURATION_MINUTES * 60.0)
 
 func spawn_player(id: int):
 	print("Spawning player with ID: ", id)
@@ -23,7 +25,7 @@ func spawn_player(id: int):
 		print("Player ", id, " already exists")
 		return
 		
-	var p = player_scene.instantiate()
+	var p = PLAYER_SCENE.instantiate()
 	p.name = "Player_%d" % id
 	p.add_to_group("players")
 	
@@ -35,14 +37,17 @@ func spawn_player(id: int):
 	
 	print("Player spawned: ", p.name, " at path: ", p.get_path())
 
-func reset_scene():
-	get_tree().call_group("Loot", "reset")
-
 func remove_player(id: int):
 	if players.has(id):
 		print("Removing player: ", id)
 		players[id].queue_free()
 		players.erase(id)
 
+func reset_scene():
+	get_tree().call_group("Loot", "reset")
+
 func _process(_delta: float) -> void:
-	$GlobalIllumination.color.a = remap($DayNightTimer.time_left, day_duration_minutes * 60,0,0,1)
+	$GlobalIllumination.color.a = remap($DayNightTimer.time_left, DAY_DURATION_MINUTES * 60,0,0,1)
+
+func _on_day_night_timer_timeout() -> void:
+	$CanvasLayer/Announcement.announce("Night " + str(current_day))

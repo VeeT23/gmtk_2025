@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2s1eohqjlwiv"]
+[gd_scene load_steps=8 format=3 uid="uid://d2s1eohqjlwiv"]
 
 [ext_resource type="Script" uid="uid://kftaybyka7et" path="res://ui/overlay/announcement.gd" id="1_nveoq"]
 [ext_resource type="Animation" uid="uid://dhwym8avp4g0m" path="res://ui/fade_out.res" id="1_v7bxp"]
+[ext_resource type="FontFile" uid="uid://dkv61ofdcd0ae" path="res://ui/font/prstartk.ttf" id="3_gfwct"]
 
 [sub_resource type="Animation" id="Animation_wk0pr"]
 length = 0.001
@@ -41,6 +42,9 @@ _data = {
 &"fade_out": ExtResource("1_v7bxp")
 }
 
+[sub_resource type="LabelSettings" id="LabelSettings_ld08c"]
+font = ExtResource("3_gfwct")
+
 [node name="Announcement" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -66,6 +70,7 @@ libraries = {
 }
 
 [node name="Label" type="Label" parent="."]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -73,6 +78,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Day 1"
+label_settings = SubResource("LabelSettings_ld08c")
 horizontal_alignment = 1
 vertical_alignment = 1
 

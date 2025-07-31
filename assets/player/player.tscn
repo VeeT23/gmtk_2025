@@ -100,7 +100,6 @@ zoom = Vector2(0.33, 0.33)
 position = Vector2(0, -66)
 
 [node name="PointLight2D" type="PointLight2D" parent="Node2D"]
-visible = false
 position = Vector2(340, 0)
 scale = Vector2(2.38281, 1.03125)
 energy = 4.0
@@ -108,7 +107,6 @@ texture = ExtResource("3_v2miy")
 texture_scale = 2.0
 
 [node name="Glow" type="PointLight2D" parent="Node2D"]
-visible = false
 z_index = 1
 position = Vector2(0, 5)
 texture = SubResource("GradientTexture2D_ouxva")
