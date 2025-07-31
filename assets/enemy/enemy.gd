@@ -2,13 +2,14 @@ extends CharacterBody2D
 
 const SPEED: float = 200.0
 
+var actual_speed: float = SPEED
+
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 var target_player: CharacterBody2D = null
 
 func _ready() -> void:
 	$Timer.timeout.connect(_on_timer_timeout)
 	nav_agent.velocity_computed.connect(_on_velocity_computed)
-	nav_agent.path_changed.connect(_on_path_changed)
 	nav_agent.target_reached.connect(_on_target_reached)
 	makepath()
 
@@ -32,17 +33,12 @@ func makepath() -> void:
 	target_player = get_closest_player()
 	if target_player:
 		nav_agent.target_position = target_player.global_position
-		print("New path to:", target_player.global_position)
 
 func _on_timer_timeout() -> void:
 	makepath()
 
-func _on_path_changed() -> void:
-	print("Path changed:", nav_agent.get_current_navigation_path())
-
 func _on_target_reached() -> void:
 	velocity = Vector2.ZERO
-	print("Reached target")
 
 func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority():
@@ -53,7 +49,7 @@ func _physics_process(_delta: float) -> void:
 		return
 
 	var next_pos: Vector2 = nav_agent.get_next_path_position()
-	var desired_velocity: Vector2 = (next_pos - global_position).normalized() * SPEED
+	var desired_velocity: Vector2 = (next_pos - global_position).normalized() * actual_speed
 
 	if nav_agent.avoidance_enabled:
 		nav_agent.set_velocity(desired_velocity)

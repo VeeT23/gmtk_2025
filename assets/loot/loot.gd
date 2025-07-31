@@ -2,7 +2,8 @@ extends StaticBody2D
 
 var looted = false
 var loot_contents = {
-	"ammo": 25
+	"ammo": 25,
+	"trap": 1
 }
 
 func _input(event: InputEvent) -> void:
