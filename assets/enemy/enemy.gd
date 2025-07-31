@@ -16,12 +16,12 @@ func _ready() -> void:
 func get_closest_player() -> CharacterBody2D:
 	if not is_multiplayer_authority():
 		return null
-	var nodes: Array = get_tree().get_nodes_in_group("Player")
-	if nodes.is_empty():
+	var players : Array = get_tree().get_nodes_in_group("Player")
+	if players.is_empty():
 		return null
 	var closest: CharacterBody2D = null
 	var min_distance := INF
-	for p in nodes:
+	for p in players:
 		if p is CharacterBody2D:
 			var d = global_position.distance_to(p.global_position)
 			if d < min_distance:
@@ -31,8 +31,14 @@ func get_closest_player() -> CharacterBody2D:
 
 func makepath() -> void:
 	target_player = get_closest_player()
+	
 	if target_player:
 		nav_agent.target_position = target_player.global_position
+		if global_position.distance_to(target_player.global_position) <= 800 and actual_speed:
+			actual_speed = SPEED * 2
+		else:
+			if actual_speed:
+				actual_speed = SPEED
 
 func _on_timer_timeout() -> void:
 	makepath()
@@ -47,10 +53,10 @@ func _physics_process(_delta: float) -> void:
 	if nav_agent.is_navigation_finished():
 		velocity = Vector2.ZERO
 		return
-
+	
 	var next_pos: Vector2 = nav_agent.get_next_path_position()
 	var desired_velocity: Vector2 = (next_pos - global_position).normalized() * actual_speed
-
+	print(desired_velocity)
 	if nav_agent.avoidance_enabled:
 		nav_agent.set_velocity(desired_velocity)
 	else:
