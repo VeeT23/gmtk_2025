@@ -1,11 +1,23 @@
-[gd_scene load_steps=9 format=3 uid="uid://ddbxenocco7fj"]
+[gd_scene load_steps=12 format=3 uid="uid://ddbxenocco7fj"]
 
 [ext_resource type="Script" uid="uid://b0yo5o0058id" path="res://assets/player/player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://b84lf2qrpxjff" path="res://assets/player/PlayerSprite.PNG" id="2_v2miy"]
 [ext_resource type="Texture2D" uid="uid://tlkwf5drgcoy" path="res://assets/player/FlashlightLightMask.png" id="3_v2miy"]
+[ext_resource type="AudioStream" uid="uid://y3lbcv64h6xd" path="res://sfx/heart_beat.ogg" id="4_ouxva"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0hol4"]
 size = Vector2(50, 138)
+
+[sub_resource type="Gradient" id="Gradient_v2miy"]
+offsets = PackedFloat32Array(0, 0.551948, 1)
+colors = PackedColorArray(0.817521, 0.817521, 0.817521, 1, 0.770839, 0.77084, 0.770839, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ouxva"]
+gradient = SubResource("Gradient_v2miy")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+metadata/_snap_enabled = true
 
 [sub_resource type="Animation" id="Animation_ouxva"]
 length = 0.001
@@ -86,14 +98,25 @@ zoom = Vector2(0.5, 0.5)
 position = Vector2(0, 29)
 
 [node name="PointLight2D" type="PointLight2D" parent="Node2D"]
-position = Vector2(190.5, 0)
+position = Vector2(340, 0)
 scale = Vector2(2.38281, 1.03125)
-energy = 2.24
+energy = 4.0
 texture = ExtResource("3_v2miy")
+texture_scale = 2.0
+
+[node name="Glow" type="PointLight2D" parent="Node2D"]
+z_index = 1
+texture = SubResource("GradientTexture2D_ouxva")
+texture_scale = 12.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_d5dr7")
 }
+
+[node name="HeartBeat" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_ouxva")
+autoplay = true
+parameters/looping = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

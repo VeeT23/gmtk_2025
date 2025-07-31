@@ -15,6 +15,7 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority(): return
 	
+	$Node2D.rotation = $Node2D.global_position.angle_to_point(get_global_mouse_position())
 	
 	var direction : Vector2 = Vector2(Input.get_axis("left", "right"),Input.get_axis("up", "down"))
 	

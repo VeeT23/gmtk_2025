@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b7jiphcimusao"]
+[gd_scene load_steps=13 format=3 uid="uid://b7jiphcimusao"]
 
 [ext_resource type="Script" uid="uid://cax8inqgk1gka" path="res://assets/world/world.gd" id="1_p0te5"]
 [ext_resource type="PackedScene" uid="uid://djljcsbd0b42u" path="res://ui/pause_menu.tscn" id="3_p0te5"]
@@ -7,11 +7,27 @@
 [ext_resource type="PackedScene" uid="uid://dhws20vvfl808" path="res://assets/loot/loot.tscn" id="6_4dexl"]
 [ext_resource type="PackedScene" uid="uid://bli273ye8sf6a" path="res://assets/world/tree/tree.tscn" id="7_7j6ot"]
 [ext_resource type="PackedScene" uid="uid://dknmk1mh4kw7r" path="res://assets/enemy/enemy.tscn" id="7_rxmnn"]
+[ext_resource type="Texture2D" uid="uid://dhqcyqkbsvsvp" path="res://assets/world/KeepOutTile.png" id="8_7j6ot"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_rxmnn"]
 vertices = PackedVector2Array(-117.883, 610.617, 2498.89, 1517.51, -2800.45, 1271.43, -371.844, 595.43, -139.977, -66.1719, 2466.09, -1839.81, -252.312, 80.3438, -167.562, -225.906, -2949.5, -1742.18, -371.117, -228.094, -516.453, -218.031, -386.242, -155.383, -762.398, -195.07, -752.57, 34.1875, -758.383, 205.047, -769.539, 395.898, -514.453, -128.219, -528.461, 29.8203, -526.641, 44.7031, -248.094, -73.4609, -520.898, 227.93, -120.109, 406.078, -523.133, 423.148, -375.18, 403.906)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 1, 6), PackedInt32Array(5, 4, 7), PackedInt32Array(8, 5, 7, 9), PackedInt32Array(10, 8, 9, 11), PackedInt32Array(8, 10, 12), PackedInt32Array(2, 8, 12, 13, 14, 15), PackedInt32Array(10, 11, 16), PackedInt32Array(17, 10, 16, 18), PackedInt32Array(6, 19, 4), PackedInt32Array(14, 13, 17, 18, 20), PackedInt32Array(6, 1, 21, 20, 18), PackedInt32Array(3, 2, 15, 22), PackedInt32Array(23, 3, 22, 20), PackedInt32Array(1, 0, 21), PackedInt32Array(23, 20, 21)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(2509, 1528, 2476, -1850, -2960, -1752, -2810, 1281), PackedVector2Array(-365, 414, -130, 416, -128, 600, -362, 586), PackedVector2Array(-749, 216, -531, 237, -533, 412, -759, 387), PackedVector2Array(-363, -218, -176, -216, -152, -77, -389, -93), PackedVector2Array(-752, -186, -527, -207, -538, 20, -743, 24), PackedVector2Array(-505, -120, -387, -145, -399.038, -89.6681, -258, -77, -262, 69, -516, 36)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_gc4wl"]
+vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+agent_radius = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_s8a52"]
+texture = ExtResource("8_7j6ot")
+0:0/0 = 0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_gc4wl")
+
+[sub_resource type="TileSet" id="TileSet_ohmqb"]
+navigation_layer_0/layers = 1
+sources/0 = SubResource("TileSetAtlasSource_s8a52")
 
 [node name="World" type="Node2D" groups=["World"]]
 script = ExtResource("1_p0te5")
@@ -19,11 +35,11 @@ script = ExtResource("1_p0te5")
 [node name="Tree3" parent="." instance=ExtResource("7_7j6ot")]
 position = Vector2(-257, 378)
 
-[node name="Tree4" parent="." instance=ExtResource("7_7j6ot")]
-position = Vector2(-644, 192)
-
 [node name="Tree" parent="." instance=ExtResource("7_7j6ot")]
 position = Vector2(-632, -202)
+
+[node name="Tree4" parent="." instance=ExtResource("7_7j6ot")]
+position = Vector2(-644, 192)
 
 [node name="Tree2" parent="." instance=ExtResource("7_7j6ot")]
 position = Vector2(-292, -268)
@@ -44,7 +60,18 @@ position = Vector2(-404, -175)
 position = Vector2(319, -250)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+visible = false
 position = Vector2(-7, -133)
 navigation_polygon = SubResource("NavigationPolygon_rxmnn")
 
 [node name="DayNightTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+color = Color(0.47451, 1, 0.380392, 0)
+energy = 2.5
+blend_mode = 1
+
+[node name="PathfindingMask" type="TileMapLayer" parent="."]
+texture_filter = 1
+tile_set = SubResource("TileSet_ohmqb")
