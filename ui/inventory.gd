@@ -2,7 +2,8 @@ extends Control
 
 var inventory = {
 	"ammo":100,
-	"trap":0
+	"trap":0,
+	"branch":0
 }
 
 @onready var item_list = $ItemList
