@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://b7jiphcimusao"]
+[gd_scene load_steps=22 format=4 uid="uid://b7jiphcimusao"]
 
 [ext_resource type="Script" uid="uid://cax8inqgk1gka" path="res://assets/world/world.gd" id="1_p0te5"]
 [ext_resource type="PackedScene" uid="uid://djljcsbd0b42u" path="res://ui/pause_menu.tscn" id="3_p0te5"]
@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bywg6lhar3v55" path="res://ui/inventory.tscn" id="5_x3ab4"]
 [ext_resource type="Texture2D" uid="uid://bq0rf6whxytqx" path="res://assets/world/GrassTexture.png" id="6_4dexl"]
 [ext_resource type="Texture2D" uid="uid://r6edxyr3bv5s" path="res://assets/world/TileSet.png" id="7_2tkfd"]
-[ext_resource type="PackedScene" uid="uid://bli273ye8sf6a" path="res://assets/world/tree/tree.tscn" id="7_7j6ot"]
+[ext_resource type="Texture2D" uid="uid://bgy05ifqbcrcs" path="res://assets/world/TreeSymbol.png" id="7_pch1o"]
 [ext_resource type="Texture2D" uid="uid://dhqcyqkbsvsvp" path="res://assets/world/KeepOutTile.png" id="8_7j6ot"]
 [ext_resource type="PackedScene" uid="uid://dknmk1mh4kw7r" path="res://assets/enemy/enemy.tscn" id="8_gc4wl"]
 [ext_resource type="PackedScene" uid="uid://dhws20vvfl808" path="res://assets/loot/loot.tscn" id="9_gc4wl"]
@@ -41,6 +41,15 @@ terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_s8a52")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h3q40"]
+texture = ExtResource("7_pch1o")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_srqmc"]
+tile_size = Vector2i(32, 32)
+sources/1 = SubResource("TileSetAtlasSource_h3q40")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pch1o"]
 texture = ExtResource("7_2tkfd")
@@ -154,6 +163,13 @@ tile_map_data = PackedByteArray("AADB/9z/AAAAAAAAAADB/93/AAAAAAAAAADB/97/AAAAAAA
 tile_set = SubResource("TileSet_ohmqb")
 metadata/_edit_lock_ = true
 
+[node name="ExtrasAutoPlace" type="TileMapLayer" parent="."]
+texture_filter = 1
+scale = Vector2(2.5, 2.5)
+tile_map_data = PackedByteArray("AAD1//b/AQAAAAAAAAD1//f/AQAAAAAAAAD1//j/AQAAAAAAAAD1//n/AQAAAAAAAAD1//r/AQAAAAAAAAD1//v/AQAAAAAAAAD1//z/AQAAAAAAAAD2//r/AQAAAAAAAAD2//n/AQAAAAAAAAD3//n/AQAAAAAAAAD3//j/AQAAAAAAAAD3//f/AQAAAAAAAAD4//f/AQAAAAAAAAD4//b/AQAAAAAAAAD5//b/AQAAAAAAAAD5//X/AQAAAAAAAAD3//b/AQAAAAAAAAD2//j/AQAAAAAAAAD0//r/AQAAAAAAAAD0//v/AQAAAAAAAAD0//z/AQAAAAAAAAD2//f/AQAAAAAAAAD0//f/AQAAAAAAAAD0//j/AQAAAAAAAAD0//n/AQAAAAAAAADz//r/AQAAAAAAAADz//v/AQAAAAAAAAA=")
+tile_set = SubResource("TileSet_srqmc")
+metadata/_edit_lock_ = true
+
 [node name="Terrain" type="TileMapLayer" parent="."]
 modulate = Color(0.685239, 0.682575, 0.837392, 1)
 z_index = -1
@@ -169,32 +185,6 @@ position = Vector2(-7722, -4128)
 [node name="Campfire" parent="." instance=ExtResource("12_lh4wc")]
 position = Vector2(2.38419e-07, -44)
 scale = Vector2(1.01874, 1)
-
-[node name="Trees" type="Node2D" parent="."]
-
-[node name="Tree0" parent="Trees" instance=ExtResource("7_7j6ot")]
-position = Vector2(-1354, 100)
-
-[node name="Tree1" parent="Trees" instance=ExtResource("7_7j6ot")]
-position = Vector2(-1051, 241)
-
-[node name="Tree2" parent="Trees" instance=ExtResource("7_7j6ot")]
-position = Vector2(-712, 102)
-
-[node name="Tree3" parent="Trees" instance=ExtResource("7_7j6ot")]
-position = Vector2(-893, 390)
-
-[node name="Tree4" parent="Trees" instance=ExtResource("7_7j6ot")]
-position = Vector2(-605, 450)
-
-[node name="Tree5" parent="Trees" instance=ExtResource("7_7j6ot")]
-position = Vector2(-1284, 632)
-
-[node name="Tree6" parent="Trees" instance=ExtResource("7_7j6ot")]
-position = Vector2(-322, 986)
-
-[node name="Tree7" parent="Trees" instance=ExtResource("7_7j6ot")]
-position = Vector2(317, 843)
 
 [node name="Loot" parent="." instance=ExtResource("9_gc4wl")]
 position = Vector2(-309, -325)

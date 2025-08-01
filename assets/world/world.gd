@@ -4,8 +4,10 @@ const DAY_DURATION_MINUTES : float = 1.0
 
 const PLAYER_SCENE : PackedScene = preload("res://assets/player/player.tscn")
 const TWIG_SCENE : PackedScene = preload("res://assets/twig/twig.tscn")
+const TREE_SCENE : PackedScene = preload("res://assets/world/tree/tree.tscn")
 
 @onready var terrain_tilemap: TileMapLayer = $Terrain
+@onready var extras_tilemap: TileMapLayer = $ExtrasAutoPlace
 
 var rng = RandomNumberGenerator.new()
 var players := {}
@@ -15,6 +17,7 @@ var current_day : int = 1
 func _ready() -> void:
 	rng.randomize()
 	place_twigs()
+	place_trees()
 	$CanvasLayer.show()
 	if Network.is_hosting:
 		Network.create_server()
@@ -72,6 +75,19 @@ func add_twig(pos: Vector2):
 	var twig = TWIG_SCENE.instantiate()
 	var tile_size = terrain_tilemap.tile_set.tile_size.x
 	var real_pos = pos * terrain_tilemap.scale.x * tile_size
+	var offset_pos = Vector2(rng.randi_range(-tile_size / 2.0, tile_size / 2.0),rng.randi_range(-tile_size / 2.0, tile_size / 2.0))
+	twig.global_position = offset_pos + real_pos
+	add_child(twig)
+
+func place_trees():
+	var tree_cells = extras_tilemap.get_used_cells_by_id(1)
+	for cell in tree_cells:
+		add_tree(cell)
+
+func add_tree(pos: Vector2):
+	var twig = TREE_SCENE.instantiate()
+	var tile_size = extras_tilemap.tile_set.tile_size.x
+	var real_pos = pos * extras_tilemap.scale.x * tile_size
 	var offset_pos = Vector2(rng.randi_range(-tile_size / 2.0, tile_size / 2.0),rng.randi_range(-tile_size / 2.0, tile_size / 2.0))
 	twig.global_position = offset_pos + real_pos
 	add_child(twig)
