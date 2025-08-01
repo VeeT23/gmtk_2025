@@ -81,7 +81,7 @@ offset_bottom = 363.0
 [node name="BoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer"]
 layout_mode = 2
 
-[node name="ItemList" type="ItemList" parent="CanvasLayer/CenterContainer/BoxContainer"]
+[node name="PlayerList" type="ItemList" parent="CanvasLayer/CenterContainer/BoxContainer"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 

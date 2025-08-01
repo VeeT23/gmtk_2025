@@ -16,13 +16,18 @@ var current_day : int = 1
 
 func _ready() -> void:
 	$CanvasLayer.show()
-	if Network.is_hosting:
-		Network.create_server()
+	# Only generate world if server
+	if multiplayer.is_server():
 		rng.randomize()
 		place_twigs()
 		place_trees()
+		# Spawn all connected players after world is ready
+		await get_tree().process_frame
+		for player_id in Network.connected_players.keys():
+			spawn_player(player_id)
 	else:
-		Network.join_server()
+		# Request world data from server
+		rpc_id(1, "request_world_data")
 	
 	$DayNightTimer.start(DAY_DURATION_MINUTES * 60.0)
 
@@ -92,3 +97,33 @@ func add_tree(pos: Vector2):
 	var offset_pos = Vector2(rng.randi_range(-tile_size / 2.0, tile_size / 2.0),rng.randi_range(-tile_size / 2.0, tile_size / 2.0))
 	twig.global_position = offset_pos + real_pos
 	add_child(twig)
+
+@rpc("any_peer", "reliable")
+func request_world_data():
+	if multiplayer.is_server():
+		var twig_positions = []
+		var tree_positions = []
+		
+		# Collect all twig positions
+		for child in get_children():
+			if child.is_in_group("Loot"):  # Assuming twigs are in Loot group
+				twig_positions.append(child.global_position)
+			elif child.name.begins_with("Tree"):  # Or however trees are identified
+				tree_positions.append(child.global_position)
+		
+		var sender_id = multiplayer.get_remote_sender_id()
+		rpc_id(sender_id, "receive_world_data", twig_positions, tree_positions)
+
+@rpc("any_peer", "reliable")
+func receive_world_data(twig_positions: Array, tree_positions: Array):
+	# Spawn twigs at synced positions
+	for pos in twig_positions:
+		var twig = TWIG_SCENE.instantiate()
+		twig.global_position = pos
+		add_child(twig)
+	
+	# Spawn trees at synced positions
+	for pos in tree_positions:
+		var tree = TREE_SCENE.instantiate()
+		tree.global_position = pos
+		add_child(tree)

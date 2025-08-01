@@ -4,7 +4,9 @@ extends Node
 @export var max_clients := 8
 
 var is_hosting = false
-var ip : String;
+var ip : String
+var game_started = false
+var connected_players = {}  # Store player info {id: name}
 
 func create_server():
 	var peer = ENetMultiplayerPeer.new()
@@ -17,9 +19,11 @@ func create_server():
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 	print("Server started on port %d" % port)
 	
-	# Server spawns its own player after a frame to ensure everything is set up
-	await get_tree().process_frame
-	spawn_player(1)  # Server always has ID 1
+	# Add server to connected players
+	connected_players[1] = "Host"
+	
+	# Server loads lobby
+	get_tree().change_scene_to_file("res://ui/lobby.tscn")
 
 func join_server():
 	var peer = ENetMultiplayerPeer.new()
@@ -35,26 +39,30 @@ func join_server():
 
 func _on_peer_connected(id: int):
 	print("Peer connected: ", id)
-	# Server tells the new client about all existing players
+	# Reject connection if game already started
+	if multiplayer.is_server() and game_started:
+		rpc_id(id, "kick_player", "Game already in progress")
+		multiplayer.multiplayer_peer.disconnect_peer(id)
+		return
+	
+	# Add player to connected list and update all clients
 	if multiplayer.is_server():
-		# First spawn the new player on all clients (including server)
-		rpc("spawn_player", id)
-		
-		# Then tell the new client about all existing players
-		for player_id in get_tree().get_nodes_in_group("players"):
-			var existing_id = int(str(player_id.name).split("_")[1])
-			if existing_id != id:
-				rpc_id(id, "spawn_player", existing_id)
+		connected_players[id] = "Player " + str(id)
+		rpc("update_player_list", connected_players)
 
 func _on_peer_disconnected(id: int):
 	print("Peer disconnected: ", id)
 	if multiplayer.is_server():
-		rpc("remove_player", id)
+		connected_players.erase(id)
+		rpc("update_player_list", connected_players)
+		# If in game, remove the player
+		if game_started:
+			rpc("remove_player", id)
 
 func _on_connected():
 	print("Connected to server")
-	# Client requests to spawn their player
-	rpc_id(1, "request_spawn", multiplayer.get_unique_id())
+	# Client loads lobby after connecting
+	get_tree().change_scene_to_file("res://assets/world/lobby.tscn")
 
 func _on_connect_failed():
 	print("Connection failed")
@@ -64,6 +72,31 @@ func _on_server_disconnected():
 	# Clean up all players when server disconnects
 	get_tree().call_group("players", "queue_free")
 	get_tree().change_scene_to_file("res://ui/main_menu.tscn")
+
+@rpc("any_peer", "call_local", "reliable")
+func update_player_list(players: Dictionary):
+	connected_players = players
+	# Update lobby UI if it exists
+	var lobby = get_tree().get_root().get_node_or_null("Lobby")
+	if lobby and lobby.has_method("update_player_list"):
+		lobby.update_player_list(players)
+
+@rpc("any_peer", "reliable")
+func kick_player(reason: String):
+	print("Kicked from server: ", reason)
+	multiplayer.multiplayer_peer = null
+	get_tree().change_scene_to_file("res://ui/main_menu.tscn")
+
+@rpc("any_peer", "call_local", "reliable")
+func start_game():
+	game_started = true
+	get_tree().change_scene_to_file("res://assets/world/main.tscn")
+	# Wait a frame to ensure scene is loaded
+	await get_tree().process_frame
+	# Spawn all connected players
+	if multiplayer.is_server():
+		for player_id in connected_players.keys():
+			rpc("spawn_player", player_id)
 
 @rpc("any_peer", "call_local", "reliable")
 func spawn_player(id: int):
