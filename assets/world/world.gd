@@ -15,12 +15,12 @@ var players := {}
 var current_day : int = 1
 
 func _ready() -> void:
-	rng.randomize()
-	place_twigs()
-	place_trees()
 	$CanvasLayer.show()
 	if Network.is_hosting:
 		Network.create_server()
+		rng.randomize()
+		place_twigs()
+		place_trees()
 	else:
 		Network.join_server()
 	
