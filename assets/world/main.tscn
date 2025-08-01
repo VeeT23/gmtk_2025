@@ -166,7 +166,7 @@ metadata/_edit_lock_ = true
 position = Vector2(-7722, -4128)
 
 [node name="Campfire" parent="." instance=ExtResource("12_lh4wc")]
-position = Vector2(3, -44)
+position = Vector2(2.38419e-07, -44)
 scale = Vector2(1.01874, 1)
 
 [node name="Trees" type="Node2D" parent="."]
@@ -199,7 +199,7 @@ position = Vector2(-309, -325)
 position = Vector2(-1664, 694)
 
 [node name="Branch2" parent="." instance=ExtResource("10_s8a52")]
-position = Vector2(-209, 191)
+position = Vector2(0, 249)
 
 [node name="Branch3" parent="." instance=ExtResource("10_s8a52")]
 position = Vector2(-1537, 315)

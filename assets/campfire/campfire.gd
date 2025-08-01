@@ -1,10 +1,8 @@
 extends StaticBody2D
 
-var strength = 300
+var strength = 400
 
-var branches = {
-	"branch": 0
-}
+var branches = 0
 
 func _ready() -> void:
 	$Sprite2D/AnimationPlayer.play("fire")
@@ -16,16 +14,17 @@ func _input(event: InputEvent) -> void:
 				if body.is_multiplayer_authority():
 					if "branch" in get_tree().get_root().get_node("World/CanvasLayer/Inventory").inventory and get_tree().get_root().get_node("World/CanvasLayer/Inventory").inventory["branch"] >= 1:
 						print("ADDED")
-						branches["branch"] += 1
+						branches += 1
 						get_tree().get_root().get_node("World/CanvasLayer/Inventory").inventory["branch"] -= 1
 						$PointLight2D.texture_scale += 1
-						$Label.text = "Branches: " + str(branches["branch"]) + " / 10"
+						$Label.text = "Branches: " + str(branches) + " / 5"
+						strength = branches * 100 + 400
 						get_tree().get_root().get_node("World/CanvasLayer/Inventory").update_item_list()
 						checkfinish()
 				break
 
 func checkfinish():
-	if branches["branch"] >= 5:
+	if branches >= 5:
 		get_tree().get_root().get_node("World").reset_scene()
 		
 

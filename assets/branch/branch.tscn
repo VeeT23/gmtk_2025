@@ -6,7 +6,7 @@
 load_path = "res://.godot/imported/Branch.png-b51541481cfbdcb84978bddf27151475.ctex"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sxbac"]
-radius = 114.001
+radius = 79.0142
 
 [node name="Branch" type="Area2D"]
 collision_layer = 8

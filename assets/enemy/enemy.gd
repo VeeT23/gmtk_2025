@@ -52,14 +52,11 @@ func makepath() -> void:
 				actual_speed = SPEED
 
 func roam():
-	print(nav_agent.target_position)
 	var max_distance = 5000
 	var offset_position = Vector2.RIGHT.rotated(rng.randf_range(-PI, PI)) * rng.randi_range(1000,max_distance)
 	var target_position: Vector2 = global_position + offset_position
 	await get_tree().create_timer(0.1).timeout
 	nav_agent.target_position = Vector2(clamp(target_position.x, -28000, 31000), clamp(target_position.y, -15000, 15000))
-	print(nav_agent.target_position)
-	print(global_position.distance_to(target_position))
 
 func _on_target_reached() -> void:
 	if investigating:
@@ -138,8 +135,7 @@ func in_range_of_fire(target_pos : Vector2):
 	if camp_fires.is_empty(): return false
 	for fire in camp_fires:
 		var distance_to_fire = target_pos.distance_to(fire.global_position)
-		print(distance_to_fire)
 		if distance_to_fire <= fire.strength:
-			print("Protected by campfire")
+			print("Protected by campfire at ",fire.global_position," Distance: ", distance_to_fire, " <= ", fire.strength)
 			return true
 	return false
