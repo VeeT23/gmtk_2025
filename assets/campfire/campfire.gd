@@ -12,11 +12,10 @@ func _input(event: InputEvent) -> void:
 		for body in $Area2D.get_overlapping_bodies():
 			if body.is_in_group("Player"):
 				if body.is_multiplayer_authority():
-					
-						if "branch" in get_tree().get_root().get_node("World/CanvasLayer/Inventory").inventory and get_tree().get_root().get_node("World/CanvasLayer/Inventory").inventory["branch"] >= 1:
-							branches["branch"] += get_tree().get_root().get_node("World/CanvasLayer/Inventory").inventory["branch"]
-							get_tree().get_root().get_node("World/CanvasLayer/Inventory").inventory["branch"] -= 1
-							$Label.text = "Branches: " + str(branches["branch"])
-							get_tree().get_root().get_node("World/CanvasLayer/Inventory").update_item_list()
-				rpc("sync_looted_open")
+					if "branch" in get_tree().get_root().get_node("World/CanvasLayer/Inventory").inventory and get_tree().get_root().get_node("World/CanvasLayer/Inventory").inventory["branch"] >= 1:
+						branches["branch"] += get_tree().get_root().get_node("World/CanvasLayer/Inventory").inventory["branch"]
+						get_tree().get_root().get_node("World/CanvasLayer/Inventory").inventory["branch"] -= 1
+						$PointLight2D.texture_scale += 1
+						$Label.text = "Branches: " + str(branches["branch"])
+						get_tree().get_root().get_node("World/CanvasLayer/Inventory").update_item_list()
 				break

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://b7jiphcimusao"]
+[gd_scene load_steps=18 format=4 uid="uid://b7jiphcimusao"]
 
 [ext_resource type="Script" uid="uid://cax8inqgk1gka" path="res://assets/world/world.gd" id="1_p0te5"]
 [ext_resource type="PackedScene" uid="uid://djljcsbd0b42u" path="res://ui/pause_menu.tscn" id="3_p0te5"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dknmk1mh4kw7r" path="res://assets/enemy/enemy.tscn" id="8_gc4wl"]
 [ext_resource type="PackedScene" uid="uid://dhws20vvfl808" path="res://assets/loot/loot.tscn" id="9_gc4wl"]
 [ext_resource type="PackedScene" uid="uid://edyhsxjythxd" path="res://assets/branch/branch.tscn" id="10_s8a52"]
+[ext_resource type="PackedScene" uid="uid://8cy3jgxp6pj6" path="res://assets/campfire/campfire.tscn" id="12_lh4wc"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_7j6ot"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -119,5 +120,8 @@ position = Vector2(-312, -64)
 
 [node name="Branch" parent="." instance=ExtResource("10_s8a52")]
 position = Vector2(-1664, 694)
+
+[node name="Campfire" parent="." instance=ExtResource("12_lh4wc")]
+position = Vector2(-222, 392)
 
 [connection signal="timeout" from="DayNightTimer" to="." method="_on_day_night_timer_timeout"]
