@@ -21,12 +21,18 @@ func _input(event: InputEvent) -> void:
 						strength = branches * 100 + 400
 						get_tree().get_root().get_node("World/CanvasLayer/Inventory").update_item_list()
 						checkfinish()
+						rpc("sync")
 				break
 
 func checkfinish():
 	if branches >= 5:
 		get_tree().get_root().get_node("World").reset_scene()
 		
+
+@rpc("any_peer", "call_local")
+func sync():
+	$Label.text = $Label.text
+	
 
 func _physics_process(_delta: float) -> void:
 	var players = get_tree().get_nodes_in_group("Player") #make player and tree layer correctly
