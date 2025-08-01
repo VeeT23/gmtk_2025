@@ -62,7 +62,7 @@ func _on_peer_disconnected(id: int):
 func _on_connected():
 	print("Connected to server")
 	# Client loads lobby after connecting
-	get_tree().change_scene_to_file("res://assets/world/lobby.tscn")
+	get_tree().change_scene_to_file("res://ui/lobby.tscn")
 
 func _on_connect_failed():
 	print("Connection failed")
