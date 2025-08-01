@@ -5,6 +5,7 @@ var randomd = RandomNumberGenerator.new()
 @onready var start_button: Button = $CanvasLayer/CenterContainer/BoxContainer/Start_Button  # Reference to start button
 
 func _ready() -> void:
+	$CanvasLayer/Overlay/Fade/AnimationPlayer.play("fade_in")
 	# Update button visibility based on if we're the host
 	if multiplayer.is_server():
 		start_button.visible = true

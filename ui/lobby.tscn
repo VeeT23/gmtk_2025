@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c35weqkwq7h1r"]
+[gd_scene load_steps=6 format=3 uid="uid://gniqg8kpdiuc"]
 
 [ext_resource type="Script" uid="uid://c8xolkei5fkrl" path="res://ui/lobby.gd" id="1_hgmly"]
 [ext_resource type="Animation" uid="uid://dhwym8avp4g0m" path="res://ui/fade_out.res" id="2_4sfkc"]

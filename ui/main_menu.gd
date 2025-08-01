@@ -55,7 +55,7 @@ func _on_new_button_pressed() -> void:
 
 func _on_join_button_pressed() -> void:
 	Network.ip = address_box.text
-	animation_player.play("fade_out")
+	#animation_player.play("fade_out")
 	await get_tree().create_timer(transition_time).timeout
 	Network.join_server()
 
