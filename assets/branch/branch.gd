@@ -13,6 +13,7 @@ func _input(event: InputEvent) -> void:
 					for item in loot_contents.keys():
 						get_tree().get_root().get_node("World/CanvasLayer/Inventory").inventory[item] += loot_contents[item]
 						get_tree().get_root().get_node("World/CanvasLayer/Inventory").update_item_list()
+				get_tree().call_group("Enemy", "go_to",global_position)
 				rpc("sync_looted_open")
 				break
 

@@ -16,6 +16,6 @@ func _input(event: InputEvent) -> void:
 						branches["branch"] += get_tree().get_root().get_node("World/CanvasLayer/Inventory").inventory["branch"]
 						get_tree().get_root().get_node("World/CanvasLayer/Inventory").inventory["branch"] -= 1
 						$PointLight2D.texture_scale += 1
-						$Label.text = "Branches: " + str(branches["branch"])
+						$Label.text = "Branches: " + str(branches["branch"]) + " / 10"
 						get_tree().get_root().get_node("World/CanvasLayer/Inventory").update_item_list()
 				break

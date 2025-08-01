@@ -38,6 +38,7 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_d5dr7"]
 resource_name = "walk_down"
 length = 0.8
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -54,6 +55,7 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_v2miy"]
 resource_name = "walk_up"
 length = 0.8
+loop_mode = 1
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -118,9 +120,9 @@ libraries = {
 }
 
 [node name="HeartBeat" type="AudioStreamPlayer2D" parent="."]
-visible = false
 stream = ExtResource("4_ouxva")
 autoplay = true
+attenuation = 14.42
 parameters/looping = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
