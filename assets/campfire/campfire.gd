@@ -1,6 +1,6 @@
 extends StaticBody2D
 
-var strength = 1000
+var strength = 300
 
 var branches = {
 	"branch": 0
