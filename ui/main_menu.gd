@@ -51,7 +51,7 @@ func _on_new_button_pressed() -> void:
 	animation_player.play("fade_out")
 	await get_tree().create_timer(transition_time).timeout
 	Network.is_hosting = true
-	get_tree().change_scene_to_file(main_scene_path)
+	get_tree().change_scene_to_file("res://ui/lobby.tscn")
 
 func _on_join_button_pressed() -> void:
 	Network.ip = address_box.text

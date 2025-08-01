@@ -1,9 +1,116 @@
-[gd_scene format=3 uid="uid://c35weqkwq7h1r"]
+[gd_scene load_steps=6 format=3 uid="uid://c35weqkwq7h1r"]
 
-[node name="Lobby" type="Control"]
+[ext_resource type="Script" uid="uid://c8xolkei5fkrl" path="res://ui/lobby.gd" id="1_hgmly"]
+[ext_resource type="Animation" uid="uid://dhwym8avp4g0m" path="res://ui/fade_out.res" id="2_4sfkc"]
+
+[sub_resource type="Animation" id="Animation_wk0pr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_rmr83"]
+resource_name = "fade_in"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rmr83"]
+_data = {
+&"RESET": SubResource("Animation_wk0pr"),
+&"fade_in": SubResource("Animation_rmr83"),
+&"fade_out": ExtResource("2_4sfkc")
+}
+
+[node name="Lobby" type="Node2D"]
+script = ExtResource("1_hgmly")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Overlay" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+
+[node name="Fade" type="ColorRect" parent="CanvasLayer/Overlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Overlay/Fade"]
+libraries = {
+&"": SubResource("AnimationLibrary_rmr83")
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+offset_left = 1.0
+offset_top = 3.0
+offset_right = 641.0
+offset_bottom = 363.0
+
+[node name="BoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer"]
+layout_mode = 2
+
+[node name="ItemList" type="ItemList" parent="CanvasLayer/CenterContainer/BoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+
+[node name="Start_Button" type="Button" parent="CanvasLayer/CenterContainer/BoxContainer"]
+layout_mode = 2
+text = "Start"
+
+[node name="Overlay" type="Control" parent="CanvasLayer/CenterContainer/BoxContainer/Start_Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Fade" type="ColorRect" parent="CanvasLayer/CenterContainer/BoxContainer/Start_Button/Overlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/CenterContainer/BoxContainer/Start_Button/Overlay/Fade"]
+libraries = {
+&"": SubResource("AnimationLibrary_rmr83")
+}
+
+[connection signal="pressed" from="CanvasLayer/CenterContainer/BoxContainer/Start_Button" to="." method="_on_start_button_pressed"]
