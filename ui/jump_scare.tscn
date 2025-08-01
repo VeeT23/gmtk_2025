@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dp5rmf147uk3x"]
 
-[ext_resource type="Script" uid="uid://drsn4twnhb5hd" path="res://jump_scare.gd" id="1_dksh2"]
+[ext_resource type="Script" uid="uid://drsn4twnhb5hd" path="res://ui/jump_scare.gd" id="1_dksh2"]
 [ext_resource type="Texture2D" uid="uid://bx5junvax3mul" path="res://ui/zng30jl8grb91-657739585.jpg" id="1_kdroj"]
 [ext_resource type="AudioStream" uid="uid://dcpwk2xr1q8yl" path="res://sfx/scream.wav" id="3_ncf7c"]
 

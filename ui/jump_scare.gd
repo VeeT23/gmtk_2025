@@ -9,5 +9,5 @@ func jump_scare():
 	$AnimationPlayer.play("jump_scare")
 
 
-func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
 	hide()

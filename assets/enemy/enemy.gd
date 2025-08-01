@@ -99,12 +99,12 @@ func _on_hurt_box_body_entered(body: Node2D) -> void:
 	if not body.is_in_group("Player"): return
 	if inactive: return
 	get_tree().get_root().get_node("World/CanvasLayer/JumpScare").jump_scare()
-	body.actual_speed = 0
+	body.speed = 0
 	body.global_position = Vector2.ZERO
 	visible = false
 	inactive = true
 	await get_tree().create_timer(1).timeout
-	body.actual_speed = body.SPEED
+	body.speed = body.SPEED
 	global_position = starting_pos
 	await get_tree().create_timer(10).timeout
 	visible = true
@@ -119,12 +119,14 @@ func _on_targeting_update_timeout() -> void:
 	makepath()
 
 func _on_target_box_body_entered(body: Node2D) -> void:
+	if not body.is_in_group("Player"): return
 	targeting = true
 	roaming = false
 	investigating = false
 
 
 func _on_target_box_body_exited(body: Node2D) -> void:
+	if not body.is_in_group("Player"): return
 	targeting = false
 	roaming = true
 	investigating = false

@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 
 const SPEED = 300.0
-var actual_speed = SPEED
+var speed = SPEED
 const JUMP_VELOCITY = -500.0
 
 var id
@@ -17,32 +17,35 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority(): return
-	
+	var distance_to_enemy = global_position.distance_to(get_closest_enemy().global_position)
+	$HeartBeat.volume_db = clamp(remap(distance_to_enemy, 0, 2000, 20, -20), -20, 20)
 	$Node2D.rotation = $Node2D.global_position.angle_to_point(get_global_mouse_position())
 	
-	var direction : Vector2 = Vector2(Input.get_axis("left", "right"),Input.get_axis("up", "down"))
 	
-	if direction:
-		if direction.y < 0:
-			
-			if not $AnimationPlayer.is_playing() or $AnimationPlayer.assigned_animation != "walk_up":
-				$AnimationPlayer.play("walk_up")
-		elif direction.y > 0:
-			if not $AnimationPlayer.is_playing() or $AnimationPlayer.assigned_animation != "walk_down":
-				$AnimationPlayer.play("walk_down")
+	var input_vector = Vector2(
+		Input.get_action_strength("right") - Input.get_action_strength("left"),
+		Input.get_action_strength("down") - Input.get_action_strength("up")
+	)
 	
-	if direction.x:
-		velocity.x = direction.x * actual_speed
-	else:
-		velocity.x = move_toward(velocity.x, 0, actual_speed)
+	var direction = input_vector.normalized()
+	velocity = direction * speed
 	
-	if direction.y:
-		velocity.y = direction.y * actual_speed
-	else:
-		velocity.y = move_toward(velocity.y, 0, actual_speed)
+	update_animation(direction)
 	
 	move_and_slide()
 	rpc("sync_position", global_position)
+
+func update_animation(direction: Vector2) -> void:
+	if direction == Vector2.ZERO:
+		$AnimationPlayer.stop()
+		return
+	if direction.y < 0.0:
+		if $AnimationPlayer.assigned_animation != "walk_up":
+			$AnimationPlayer.play("walk_up")
+	elif direction.y > 0.0:
+		if $AnimationPlayer.assigned_animation != "walk_down":
+			$AnimationPlayer.play("walk_down")
+
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("reset_debug"):
@@ -71,3 +74,17 @@ func spawn_trap():
 	var trap = trap_scene.instantiate()
 	trap.global_position = global_position
 	get_tree().get_root().get_node("World").add_child(trap)
+
+func get_closest_enemy() -> CharacterBody2D:
+	var enemies : Array = get_tree().get_nodes_in_group("Enemy")
+	if enemies.is_empty():
+		return null
+	var closest: CharacterBody2D = null
+	var min_distance := INF
+	for e in enemies:
+		if e is CharacterBody2D:
+			var d = global_position.distance_to(e.global_position)
+			if d < min_distance:
+				min_distance = d
+				closest = e
+	return closest

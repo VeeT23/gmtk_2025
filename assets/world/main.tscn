@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cax8inqgk1gka" path="res://assets/world/world.gd" id="1_p0te5"]
 [ext_resource type="PackedScene" uid="uid://djljcsbd0b42u" path="res://ui/pause_menu.tscn" id="3_p0te5"]
 [ext_resource type="PackedScene" uid="uid://d2s1eohqjlwiv" path="res://ui/overlay/announcement.tscn" id="4_7j6ot"]
-[ext_resource type="PackedScene" uid="uid://dp5rmf147uk3x" path="res://jump_scare.tscn" id="5_ohmqb"]
+[ext_resource type="PackedScene" uid="uid://dp5rmf147uk3x" path="res://ui/jump_scare.tscn" id="5_ohmqb"]
 [ext_resource type="PackedScene" uid="uid://bywg6lhar3v55" path="res://ui/inventory.tscn" id="5_x3ab4"]
 [ext_resource type="Texture2D" uid="uid://bq0rf6whxytqx" path="res://assets/world/GrassTexture.png" id="6_4dexl"]
 [ext_resource type="PackedScene" uid="uid://bli273ye8sf6a" path="res://assets/world/tree/tree.tscn" id="7_7j6ot"]
@@ -90,7 +90,7 @@ tile_set = SubResource("TileSet_7j6ot")
 metadata/_edit_lock_ = true
 
 [node name="Enemy" parent="." instance=ExtResource("8_gc4wl")]
-position = Vector2(1282, -834)
+position = Vector2(-7722, -4128)
 
 [node name="Trees" type="Node2D" parent="."]
 
@@ -135,5 +135,6 @@ position = Vector2(-1568, 985)
 
 [node name="Campfire" parent="." instance=ExtResource("12_lh4wc")]
 position = Vector2(-222, 392)
+scale = Vector2(1.01874, 1)
 
 [connection signal="timeout" from="DayNightTimer" to="." method="_on_day_night_timer_timeout"]
