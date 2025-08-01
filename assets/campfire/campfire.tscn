@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://8cy3jgxp6pj6"]
+[gd_scene load_steps=11 format=3 uid="uid://8cy3jgxp6pj6"]
 
+[ext_resource type="Script" uid="uid://ce4b6qvcyafpd" path="res://assets/campfire/campfire.gd" id="1_c5iii"]
 [ext_resource type="Texture2D" uid="uid://bl7nxqa3vedov" path="res://assets/campfire/32px fireplace.png" id="1_larxc"]
+[ext_resource type="FontFile" uid="uid://dkv61ofdcd0ae" path="res://ui/font/prstartk.ttf" id="3_ih88q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c5iii"]
-size = Vector2(32, 9)
+size = Vector2(152, 36)
 
 [sub_resource type="Animation" id="Animation_7xfg8"]
 length = 0.001
@@ -42,14 +44,30 @@ _data = {
 &"fire": SubResource("Animation_ih88q")
 }
 
+[sub_resource type="Gradient" id="Gradient_c5iii"]
+offsets = PackedFloat32Array(0, 0.729642, 1)
+colors = PackedColorArray(0.817521, 0.817521, 0.817521, 1, 0.446777, 0.446777, 0.446777, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ih88q"]
+gradient = SubResource("Gradient_c5iii")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c5iii"]
+radius = 212.002
+
 [node name="Campfire" type="StaticBody2D"]
+script = ExtResource("1_c5iii")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 12.5)
+position = Vector2(0, -18)
 shape = SubResource("RectangleShape2D_c5iii")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+position = Vector2(0, -80)
+scale = Vector2(5, 5)
 texture = ExtResource("1_larxc")
 hframes = 6
 
@@ -58,3 +76,26 @@ root_node = NodePath("../..")
 libraries = {
 &"": SubResource("AnimationLibrary_w5kwf")
 }
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-4, -55)
+scale = Vector2(5.73437, 5.32812)
+energy = 0.65
+texture = SubResource("GradientTexture2D_ih88q")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -18)
+shape = SubResource("CircleShape2D_c5iii")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -131.0
+offset_top = -288.0
+offset_right = 133.0
+offset_bottom = -205.0
+theme_override_fonts/font = ExtResource("3_ih88q")
+theme_override_font_sizes/font_size = 24
+text = "Branches: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
