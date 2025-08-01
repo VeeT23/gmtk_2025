@@ -57,7 +57,7 @@ fill_to = Vector2(1, 0.5)
 [sub_resource type="CircleShape2D" id="CircleShape2D_c5iii"]
 radius = 212.002
 
-[node name="Campfire" type="StaticBody2D"]
+[node name="Campfire" type="StaticBody2D" groups=["Fire"]]
 script = ExtResource("1_c5iii")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

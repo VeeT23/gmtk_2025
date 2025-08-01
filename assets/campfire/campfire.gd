@@ -1,5 +1,7 @@
 extends StaticBody2D
 
+var strength = 1000
+
 var branches = {
 	"branch": 0
 }
@@ -31,7 +33,6 @@ func _physics_process(_delta: float) -> void:
 	var players = get_tree().get_nodes_in_group("Player") #make player and tree layer correctly
 	for player in players:
 		if player.is_multiplayer_authority():
-			print(z_index)
 			if player.global_position.y < global_position.y:
 				z_index = 4
 			else:

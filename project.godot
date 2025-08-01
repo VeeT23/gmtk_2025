@@ -37,6 +37,7 @@ window/stretch/aspect="keep_height"
 World=""
 Loot=""
 Disposable=""
+Fire=""
 
 [input]
 

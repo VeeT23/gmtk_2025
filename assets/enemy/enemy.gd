@@ -91,6 +91,7 @@ func _on_velocity_computed(safe_velocity: Vector2) -> void:
 		rpc("sync_position", global_position)
 
 func go_to(pos:Vector2):
+	if in_range_of_fire(pos): return
 	investigating = true
 	nav_agent.target_position = pos
 
@@ -131,3 +132,14 @@ func _on_target_box_body_exited(body: Node2D) -> void:
 	roaming = true
 	investigating = false
 	roam()
+
+func in_range_of_fire(target_pos : Vector2):
+	var camp_fires = get_tree().get_nodes_in_group("Fire")
+	if camp_fires.is_empty(): return false
+	for fire in camp_fires:
+		var distance_to_fire = target_pos.distance_to(fire.global_position)
+		print(distance_to_fire)
+		if distance_to_fire <= fire.strength:
+			print("Protected by campfire")
+			return true
+	return false
