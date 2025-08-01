@@ -40,7 +40,7 @@ func _physics_process(_delta: float) -> void:
 	update_animation(direction)
 	
 	move_and_slide()
-	rpc("sync_position", global_position)
+	rpc("sync_position", global_position, $Node2D.rotation_degrees, $Icon.frame)
 
 func update_animation(direction: Vector2) -> void:
 	if direction == Vector2.ZERO:
@@ -77,9 +77,11 @@ func _input(event: InputEvent) -> void:
 			print("No traps in inventory!")
 
 @rpc("any_peer")
-func sync_position(pos: Vector2):
+func sync_position(pos: Vector2, rot : int, frame : int):
 	if not is_multiplayer_authority():
 		global_position = pos
+		$Node2D.rotation_degrees = rot
+		$Icon.frame = frame
 	
 	move_and_slide()
 
