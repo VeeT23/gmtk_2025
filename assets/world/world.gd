@@ -81,6 +81,7 @@ func add_twig(pos: Vector2):
 
 func place_trees():
 	var tree_cells = extras_tilemap.get_used_cells_by_id(1)
+	tree_cells.sort_custom(func(a, b): return a.y < b.y)
 	for cell in tree_cells:
 		add_tree(cell)
 
