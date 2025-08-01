@@ -10,7 +10,7 @@ var connected_players = {}  # Store player info {id: name}
 var server_seed = 0
 
 func create_server():
-	server_seed =  Time.get_ticks_usec() % 1000000000
+	server_seed = Time.get_ticks_usec() % 1000000000
 	var peer = ENetMultiplayerPeer.new()
 	var err = peer.create_server(port, max_clients)
 	if err != OK:
@@ -51,6 +51,8 @@ func _on_peer_connected(id: int):
 	if multiplayer.is_server():
 		connected_players[id] = "Player " + str(id)
 		rpc("update_player_list", connected_players)
+		# Send server seed to the newly connected client
+		rpc_id(id, "set_server_seed", server_seed)
 
 func _on_peer_disconnected(id: int):
 	print("Peer disconnected: ", id)
@@ -95,8 +97,9 @@ func start_game():
 	get_tree().change_scene_to_file("res://assets/world/main.tscn")
 	# Wait a frame to ensure scene is loaded
 	await get_tree().process_frame
-	# Spawn all connected players
+	# Ensure all clients have the server seed before spawning players
 	if multiplayer.is_server():
+		rpc("set_server_seed", server_seed)
 		for player_id in connected_players.keys():
 			rpc("spawn_player", player_id)
 
@@ -119,3 +122,8 @@ func request_spawn(id: int):
 	# Only server handles spawn requests
 	if multiplayer.is_server():
 		rpc("spawn_player", id)
+
+@rpc("authority", "call_local", "reliable")
+func set_server_seed(seeds: int):
+	server_seed = seeds
+	print("Server seed updated: ", server_seed)
