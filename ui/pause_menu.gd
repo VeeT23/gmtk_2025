@@ -1,6 +1,6 @@
 extends Control
 
-const main_scene_path : String = "res://assets/world/main.tscn"
+const main_menu_path : String = "res://ui/main_menu.tscn"
 
 func _ready() -> void:
 	hide() 
@@ -22,4 +22,4 @@ func _on_load_button_pressed() -> void:
 	SaveManager.load_game()
 
 func _on_main_menu_button_pressed() -> void:
-	get_tree().change_scene_to_file(main_scene_path)
+	get_tree().change_scene_to_file(main_menu_path)
