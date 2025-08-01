@@ -49,6 +49,9 @@ func remove_player(id: int):
 
 func reset_scene():
 	get_tree().call_group("Loot", "reset")
+	$DayNightTimer.start(DAY_DURATION_MINUTES * 60.0)
+	current_day += 1
+	$CanvasLayer/Announcement.announce("Day " + str(current_day))
 
 func _process(_delta: float) -> void:
 	$GlobalIllumination.color.a = remap($DayNightTimer.time_left, DAY_DURATION_MINUTES * 60,0,0,1)

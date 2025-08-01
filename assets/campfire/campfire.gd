@@ -19,4 +19,10 @@ func _input(event: InputEvent) -> void:
 						$PointLight2D.texture_scale += 1
 						$Label.text = "Branches: " + str(branches["branch"]) + " / 10"
 						get_tree().get_root().get_node("World/CanvasLayer/Inventory").update_item_list()
+						checkfinish()
 				break
+
+func checkfinish():
+	if branches["branch"] >= 5:
+		get_tree().get_root().get_node("World").reset_scene()
+		

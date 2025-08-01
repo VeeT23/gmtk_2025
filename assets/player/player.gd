@@ -18,7 +18,7 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority(): return
 	var distance_to_enemy = global_position.distance_to(get_closest_enemy().global_position)
-	$HeartBeat.volume_db = clamp(remap(distance_to_enemy, 0, 2000, 20, -20), -20, 20)
+	$HeartBeat.volume_db = clamp(remap(distance_to_enemy, 0, 2000, 20, -20), -INF, 20)
 	$Node2D.rotation = $Node2D.global_position.angle_to_point(get_global_mouse_position())
 	
 	
