@@ -48,11 +48,12 @@ func remove_player(id: int):
 		players.erase(id)
 
 func reset_scene():
+	current_day += 1
 	$CanvasLayer/Announcement.announce("Day " + str(current_day))
 	await  get_tree().create_timer(1).timeout
 	get_tree().call_group("Loot", "reset")
 	$DayNightTimer.start(DAY_DURATION_MINUTES * 60.0)
-	current_day += 1
+	
 	
 
 func _process(_delta: float) -> void:
