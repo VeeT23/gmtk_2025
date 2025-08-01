@@ -15,10 +15,12 @@ var players := {}
 var current_day : int = 1
 
 func _ready() -> void:
+	
+	rng.seed = Network.server_seed
+	print(rng.seed)
 	$CanvasLayer.show()
 	# Only generate world if server
 	if multiplayer.is_server():
-		rng.randomize()
 		place_twigs()
 		place_trees()
 		# Spawn all connected players after world is ready

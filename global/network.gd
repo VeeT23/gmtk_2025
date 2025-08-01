@@ -7,8 +7,10 @@ var is_hosting = false
 var ip : String
 var game_started = false
 var connected_players = {}  # Store player info {id: name}
+var server_seed = 0
 
 func create_server():
+	server_seed =  Time.get_ticks_usec() % 1000000000
 	var peer = ENetMultiplayerPeer.new()
 	var err = peer.create_server(port, max_clients)
 	if err != OK:
