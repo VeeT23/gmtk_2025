@@ -26,3 +26,13 @@ func checkfinish():
 	if branches["branch"] >= 5:
 		get_tree().get_root().get_node("World").reset_scene()
 		
+
+func _physics_process(_delta: float) -> void:
+	var players = get_tree().get_nodes_in_group("Player") #make player and tree layer correctly
+	for player in players:
+		if player.is_multiplayer_authority():
+			print(z_index)
+			if player.global_position.y < global_position.y:
+				z_index = 4
+			else:
+				z_index = 1
