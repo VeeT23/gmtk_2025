@@ -134,8 +134,10 @@ metadata/_edit_use_anchors_ = true
 [node name="Inventory" parent="CanvasLayer" instance=ExtResource("5_x3ab4")]
 
 [node name="Announcement" parent="CanvasLayer" instance=ExtResource("4_7j6ot")]
+mouse_filter = 1
 
 [node name="JumpScare" parent="CanvasLayer" instance=ExtResource("5_ohmqb")]
+mouse_filter = 1
 
 [node name="DayNightTimer" type="Timer" parent="."]
 one_shot = true
