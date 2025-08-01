@@ -19,10 +19,10 @@ func _ready() -> void:
 	rng.seed = Network.server_seed
 	print(rng.seed)
 	$CanvasLayer.show()
-	# Only generate world if server
+	place_twigs()
+	place_trees()
 	if multiplayer.is_server():
-		place_twigs()
-		place_trees()
+		
 		# Spawn all connected players after world is ready
 		await get_tree().process_frame
 		for player_id in Network.connected_players.keys():
