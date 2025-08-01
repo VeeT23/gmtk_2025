@@ -121,6 +121,18 @@ position = Vector2(-312, -64)
 [node name="Branch" parent="." instance=ExtResource("10_s8a52")]
 position = Vector2(-1664, 694)
 
+[node name="Branch2" parent="." instance=ExtResource("10_s8a52")]
+position = Vector2(-1264, 867)
+
+[node name="Branch3" parent="." instance=ExtResource("10_s8a52")]
+position = Vector2(-1537, 315)
+
+[node name="Branch4" parent="." instance=ExtResource("10_s8a52")]
+position = Vector2(-1858, 405)
+
+[node name="Branch5" parent="." instance=ExtResource("10_s8a52")]
+position = Vector2(-1568, 985)
+
 [node name="Campfire" parent="." instance=ExtResource("12_lh4wc")]
 position = Vector2(-222, 392)
 
