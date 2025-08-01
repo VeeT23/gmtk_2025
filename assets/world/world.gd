@@ -15,7 +15,7 @@ var current_day : int = 1
 func _ready() -> void:
 	rng.randomize()
 	place_twigs()
-	
+	$CanvasLayer.show()
 	if Network.is_hosting:
 		Network.create_server()
 	else:
