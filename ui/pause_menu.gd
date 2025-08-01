@@ -26,4 +26,5 @@ func _on_load_button_pressed() -> void:
 	SaveManager.load_game()
 
 func _on_main_menu_button_pressed() -> void:
+	get_tree().paused = false
 	get_tree().change_scene_to_file(main_menu_path)
