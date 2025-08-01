@@ -66,6 +66,6 @@ func add_twig(pos: Vector2):
 	var twig = TWIG_SCENE.instantiate()
 	var tile_size = terrain_tilemap.tile_set.tile_size.x
 	var real_pos = pos * terrain_tilemap.scale.x * tile_size
-	var offset_pos = Vector2(rng.randi_range(-tile_size / 2, tile_size / 2),rng.randi_range(-tile_size / 2, tile_size / 2))
+	var offset_pos = Vector2(rng.randi_range(-tile_size / 2.0, tile_size / 2.0),rng.randi_range(-tile_size / 2.0, tile_size / 2.0))
 	twig.global_position = offset_pos + real_pos
 	add_child(twig)

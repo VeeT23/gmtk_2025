@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dknmk1mh4kw7r"]
+[gd_scene load_steps=6 format=3 uid="uid://dknmk1mh4kw7r"]
 
 [ext_resource type="Script" uid="uid://b0rihlkdq24ew" path="res://assets/enemy/enemy.gd" id="1_4nxta"]
 [ext_resource type="Texture2D" uid="uid://djgvq6j03md4n" path="res://icon.svg" id="2_o5tp1"]
@@ -8,6 +8,9 @@ size = Vector2(128, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4nxta"]
 size = Vector2(131, 130)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4nxta"]
+radius = 817.039
 
 [node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
 z_index = 1
@@ -19,11 +22,8 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_0hol4")
 
-[node name="Icon" type="Sprite2D" parent="."]
-modulate = Color(1, 0, 0, 1)
-texture = ExtResource("2_o5tp1")
-
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_max_distance = 1e+07
 avoidance_enabled = true
 max_speed = 100000.0
 avoidance_layers = 3
@@ -31,12 +31,12 @@ avoidance_mask = 3
 debug_enabled = true
 debug_path_custom_line_width = 9.43
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 4.0
+[node name="TargetingUpdate" type="Timer" parent="."]
+wait_time = 0.25
 autostart = true
 
 [node name="Hurt_Box" type="Area2D" parent="."]
-collision_layer = 4
+collision_layer = 32
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurt_Box"]
@@ -44,4 +44,19 @@ position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_4nxta")
 debug_color = Color(0.716004, 0.449734, 0.476738, 0.42)
 
+[node name="Target_Box" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Target_Box"]
+shape = SubResource("CircleShape2D_4nxta")
+debug_color = Color(0.67639, 0.500503, 0.205776, 0.42)
+
+[node name="Icon" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+texture = ExtResource("2_o5tp1")
+
+[connection signal="timeout" from="TargetingUpdate" to="." method="_on_targeting_update_timeout"]
 [connection signal="body_entered" from="Hurt_Box" to="." method="_on_hurt_box_body_entered"]
+[connection signal="body_entered" from="Target_Box" to="." method="_on_target_box_body_entered"]
+[connection signal="body_exited" from="Target_Box" to="." method="_on_target_box_body_exited"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dp5rmf147uk3x"]
 
-[ext_resource type="Script" path="res://jump_scare.gd" id="1_dksh2"]
+[ext_resource type="Script" uid="uid://drsn4twnhb5hd" path="res://jump_scare.gd" id="1_dksh2"]
 [ext_resource type="Texture2D" uid="uid://bx5junvax3mul" path="res://ui/zng30jl8grb91-657739585.jpg" id="1_kdroj"]
 
 [sub_resource type="Animation" id="Animation_ncf7c"]

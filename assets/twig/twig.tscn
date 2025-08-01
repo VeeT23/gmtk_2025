@@ -4,9 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://do836pcnpxu6o" path="res://assets/twig/Twig.png" id="2_mjobt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8v64i"]
-radius = 18.0278
+radius = 35.0571
 
 [node name="Twig" type="Area2D" groups=["Disposable"]]
+collision_mask = 2
 script = ExtResource("1_h6k0t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -18,3 +19,5 @@ scale = Vector2(5, 5)
 texture = ExtResource("2_mjobt")
 hframes = 2
 vframes = 2
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
