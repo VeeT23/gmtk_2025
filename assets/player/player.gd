@@ -40,12 +40,9 @@ func _physics_process(_delta: float) -> void:
 	rpc("sync_position", global_position, $Node2D.rotation_degrees, $Icon.frame)
 
 func update_animation(direction: Vector2) -> void:
-	
-	
 	if direction == Vector2.ZERO:
 		$AnimationPlayer.stop()
 		return
-	print(direction)
 	if direction.x < 0.0:
 		if $AnimationPlayer.assigned_animation != "walk_left" or not $AnimationPlayer.is_playing():
 			$AnimationPlayer.play("walk_left")

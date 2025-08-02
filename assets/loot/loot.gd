@@ -11,7 +11,6 @@ func _ready() -> void:
 	$Sprite2D.frame = set_frame
 
 func _input(event: InputEvent) -> void:
-	if not is_multiplayer_authority(): return
 	if looted: return
 	if event.is_action_pressed("interact"):
 		for body in $Area2D.get_overlapping_bodies():
