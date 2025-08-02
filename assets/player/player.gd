@@ -47,16 +47,16 @@ func update_animation(direction: Vector2) -> void:
 		return
 	print(direction)
 	if direction.x < 0.0:
-		if $AnimationPlayer.assigned_animation != "walk_left":
+		if $AnimationPlayer.assigned_animation != "walk_left" or not $AnimationPlayer.is_playing():
 			$AnimationPlayer.play("walk_left")
 	elif direction.x > 0.0:
-		if $AnimationPlayer.assigned_animation != "walk_right":
+		if $AnimationPlayer.assigned_animation != "walk_right" or not $AnimationPlayer.is_playing():
 			$AnimationPlayer.play("walk_right")
 	elif direction.y < 0.0:
-		if $AnimationPlayer.assigned_animation != "walk_up":
+		if $AnimationPlayer.assigned_animation != "walk_up" or not $AnimationPlayer.is_playing():
 			$AnimationPlayer.play("walk_up")
 	elif direction.y > 0.0:
-		if $AnimationPlayer.assigned_animation != "walk_down":
+		if $AnimationPlayer.assigned_animation != "walk_down" or not $AnimationPlayer.is_playing():
 			$AnimationPlayer.play("walk_down")
 
 func _input(event: InputEvent) -> void:
