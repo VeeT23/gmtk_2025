@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=4 uid="uid://b7jiphcimusao"]
+[gd_scene load_steps=59 format=4 uid="uid://b7jiphcimusao"]
 
 [ext_resource type="Script" uid="uid://cax8inqgk1gka" path="res://assets/world/world.gd" id="1_p0te5"]
 [ext_resource type="PackedScene" uid="uid://djljcsbd0b42u" path="res://ui/pause_menu.tscn" id="3_p0te5"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://r6edxyr3bv5s" path="res://assets/world/TileSet.png" id="7_2tkfd"]
 [ext_resource type="Texture2D" uid="uid://bgy05ifqbcrcs" path="res://assets/world/TreeSymbol.png" id="7_pch1o"]
 [ext_resource type="Texture2D" uid="uid://dhqcyqkbsvsvp" path="res://assets/world/KeepOutTile.png" id="8_7j6ot"]
+[ext_resource type="Texture2D" uid="uid://b126flsayjn4o" path="res://assets/world/rock/RockSet.png" id="8_8tkuq"]
 [ext_resource type="PackedScene" uid="uid://dknmk1mh4kw7r" path="res://assets/enemy/enemy.tscn" id="8_gc4wl"]
 [ext_resource type="PackedScene" uid="uid://dhws20vvfl808" path="res://assets/loot/loot.tscn" id="9_gc4wl"]
 [ext_resource type="Texture2D" uid="uid://cwkhfxsqm83dt" path="res://assets/world/WaterTileSet.png" id="10_h3q40"]
@@ -54,6 +55,20 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSet" id="TileSet_srqmc"]
 tile_size = Vector2i(32, 32)
 sources/1 = SubResource("TileSetAtlasSource_h3q40")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v8a77"]
+texture = ExtResource("8_8tkuq")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_y52bu"]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_v8a77")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pch1o"]
 texture = ExtResource("7_2tkfd")
@@ -252,13 +267,6 @@ size = Vector2(265.5, 797.875)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_62bme"]
 size = Vector2(265.5, 2856.51)
 
-[sub_resource type="Environment" id="Environment_srqmc"]
-glow_enabled = true
-glow_intensity = 2.35
-glow_strength = 0.81
-glow_bloom = 0.46
-glow_blend_mode = 0
-
 [node name="World" type="Node2D" groups=["World"]]
 script = ExtResource("1_p0te5")
 
@@ -299,6 +307,11 @@ tile_map_data = PackedByteArray("AAD6/wgAAQAAAAAAAADz/wgAAQAAAAAAAADw////AQAAAAA
 tile_set = SubResource("TileSet_srqmc")
 metadata/_edit_lock_ = true
 
+[node name="Extras" type="TileMapLayer" parent="."]
+scale = Vector2(2.5, 2.5)
+tile_map_data = PackedByteArray("AAD0/wUAAAAAAAEAAAD1/wMAAAABAAEAAAD0/wEAAAABAAAAAAD4/wEAAAACAAAAAAD5/wUAAAACAAEAAADy/wMAAAACAAEAAADs/wMAAAAAAAEAAADw/wEAAAABAAEAAADk/wQAAAACAAEAAADo/wIAAAACAAAAAADq////AAABAAAAAADk//7/AAAAAAAAAADg/wEAAAAAAAEAAADc/wIAAAABAAEAAADZ//7/AAACAAEAAADc//z/AAABAAAAAADh//3/AAACAAAAAAABAPf/AAAAAAAAAAAEAPT/AAABAAEAAAABAPT/AAABAAAAAAADAPH/AAAAAAEAAAAAAPD/AAAAAAAAAAAEAOz/AAACAAEAAAABAO3/AAABAAAAAAD9/+z/AAAAAAEAAAD7/+f/AAAAAAAAAAD//+f/AAABAAEAAAACAOf/AAABAAAAAAABAOr/AAAAAAEAAAD5/+r/AAACAAEAAAD1/+j/AAACAAEAAADw/+v/AAAAAAEAAADx/+b/AAACAAAAAADt/+j/AAAAAAEAAADm/+f/AAAAAAEAAADp/+T/AAACAAEAAADt/+X/AAAAAAAAAADp/+v/AAAAAAAAAADs/+r/AAABAAAAAADl/+r/AAACAAAAAAD1/+v/AAACAAAAAAD4/+X/AAAAAAEAAAA=")
+tile_set = SubResource("TileSet_y52bu")
+
 [node name="Terrain" type="TileMapLayer" parent="."]
 modulate = Color(0.685239, 0.682575, 0.837392, 1)
 z_index = -1
@@ -315,7 +328,7 @@ tile_map_data = PackedByteArray("AADx/wcAAQAAAAAAAADw/wcAAQAAAAAAAADw/wgAAQAAAAA
 tile_set = SubResource("TileSet_v8a77")
 
 [node name="Enemy" parent="." instance=ExtResource("8_gc4wl")]
-position = Vector2(-465, 5849)
+position = Vector2(6782, 3734)
 
 [node name="Campfire" parent="." instance=ExtResource("12_lh4wc")]
 position = Vector2(2.38419e-07, -44)
@@ -486,9 +499,6 @@ scale = Vector2(1.01874, 1)
 position = Vector2(11881, 7845)
 scale = Vector2(1.01874, 1)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_srqmc")
-
 [node name="Branch6" parent="." instance=ExtResource("10_s8a52")]
 position = Vector2(3586, 1067)
 
@@ -541,5 +551,8 @@ position = Vector2(1079, 4313)
 
 [node name="Branch15" parent="." instance=ExtResource("10_s8a52")]
 position = Vector2(-1411, 4026)
+
+[node name="Branch16" parent="." instance=ExtResource("10_s8a52")]
+position = Vector2(1590, 2103)
 
 [connection signal="timeout" from="DayNightTimer" to="." method="_on_day_night_timer_timeout"]
