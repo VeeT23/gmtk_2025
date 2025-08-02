@@ -123,6 +123,7 @@ script = ExtResource("1_onrkg")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ouxva")
+disabled = true
 
 [node name="Icon" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -133,7 +134,7 @@ hframes = 4
 vframes = 4
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.33, 0.33)
+zoom = Vector2(0.1, 0.1)
 
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(0, -66)
