@@ -68,6 +68,8 @@ func reset_scene():
 	await  get_tree().create_timer(1).timeout
 	get_tree().call_group("Loot", "reset")
 	get_tree().call_group("Obstacle", "new_day", current_day)
+	$Enemy.global_position = $Enemy.starting_position
+	$Enemy.inactive = true
 	$DayNightTimer.start(DAY_DURATION_MINUTES * 60.0)
 	
 	
@@ -76,6 +78,7 @@ func _process(_delta: float) -> void:
 	$GlobalIllumination.color.a = remap($DayNightTimer.time_left, DAY_DURATION_MINUTES * 60,0,0,1)
 
 func _on_day_night_timer_timeout() -> void:
+	$Enemy.inactive = false
 	$CanvasLayer/Announcement.announce("Night " + str(current_day))
 
 func place_twigs():
