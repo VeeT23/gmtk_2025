@@ -36,3 +36,15 @@ func announce(text: String):
 	$Fade.hide()
 	$Label.hide()
 	$Fade2/AnimationPlayer.play("fade_in")
+
+func announce_constant(text: String):
+	$Fade.color = Color(0,0,0,0)
+	$Fade2.color = Color(0,0,0,0)
+	$Fade.show()
+	$Fade2.show()
+	$Fade/AnimationPlayer.play("fade_out")
+	$Fade2/AnimationPlayer.play("fade_out")
+	await get_tree().create_timer(1).timeout
+	$Label.show()
+	$Label.text = text
+	$Fade/AnimationPlayer.play("fade_in")

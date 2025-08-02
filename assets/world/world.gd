@@ -63,14 +63,22 @@ func remove_player(id: int):
 		players.erase(id)
 
 func reset_scene():
-	current_day += 1
-	$CanvasLayer/Announcement.announce("Day " + str(current_day))
-	await  get_tree().create_timer(1).timeout
-	get_tree().call_group("Loot", "reset")
-	get_tree().call_group("Obstacle", "new_day", current_day)
-	$Enemy.global_position = $Enemy.starting_pos
-	$Enemy.inactive = true
-	$DayNightTimer.start(DAY_DURATION_MINUTES * 60.0)
+	if current_day >= 5:
+		$CanvasLayer/Announcement.announce_constant("You've Won!")
+		$Enemy.global_position = $Enemy.starting_pos
+		$Enemy.inactive = true
+		$AudioStreamPlayer2D.play()
+		await get_tree().create_timer(11).timeout
+		get_tree().quit()
+	else:
+		current_day += 1
+		$CanvasLayer/Announcement.announce("Day " + str(current_day))
+		await  get_tree().create_timer(1).timeout
+		get_tree().call_group("Loot", "reset")
+		get_tree().call_group("Obstacle", "new_day", current_day)
+		$Enemy.global_position = $Enemy.starting_pos
+		$Enemy.inactive = true
+		$DayNightTimer.start(DAY_DURATION_MINUTES * 60.0)
 	
 	
 

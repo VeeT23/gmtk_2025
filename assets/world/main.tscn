@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://8cy3jgxp6pj6" path="res://assets/campfire/campfire.tscn" id="12_lh4wc"]
 [ext_resource type="PackedScene" uid="uid://dhetxtdmefh78" path="res://assets/world/tree/fallen_tree.tscn" id="16_srqmc"]
 [ext_resource type="PackedScene" uid="uid://c1m8hf3l61oob" path="res://assets/world/rock/rock_obstacle.tscn" id="17_lppja"]
+[ext_resource type="AudioStream" uid="uid://bbx5u1hskcm7w" path="res://sfx/fnaf_end.mp3" id="19_v8a77"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_7j6ot"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -637,5 +638,8 @@ position = Vector2(17821, 3754)
 
 [node name="Branch31" parent="." instance=ExtResource("10_s8a52")]
 position = Vector2(17324, 7108)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("19_v8a77")
 
 [connection signal="timeout" from="DayNightTimer" to="." method="_on_day_night_timer_timeout"]
