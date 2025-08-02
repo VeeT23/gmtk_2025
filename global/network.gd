@@ -106,7 +106,7 @@ func start_game():
 @rpc("any_peer", "call_local", "reliable")
 func spawn_player(id: int):
 	print("RPC: Spawning player ", id)
-	var world = get_tree().get_root().get_node("World")
+	var world = get_tree().get_root().get_node_or_null("World")
 	if world:
 		world.spawn_player(id)
 
