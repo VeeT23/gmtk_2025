@@ -68,7 +68,7 @@ func reset_scene():
 	await  get_tree().create_timer(1).timeout
 	get_tree().call_group("Loot", "reset")
 	get_tree().call_group("Obstacle", "new_day", current_day)
-	$Enemy.global_position = $Enemy.starting_position
+	$Enemy.global_position = $Enemy.starting_pos
 	$Enemy.inactive = true
 	$DayNightTimer.start(DAY_DURATION_MINUTES * 60.0)
 	
