@@ -18,7 +18,6 @@ func _input(event: InputEvent) -> void:
 					# Deduct branch locally first
 					inventory.inventory["branch"] -= 1
 					inventory.update_item_list()
-
 					if multiplayer.is_server():
 						# Host directly adds the branch
 						add_branch()
@@ -69,3 +68,15 @@ func _physics_process(_delta: float) -> void:
 
 func _on_audio_stream_player_2d_finished() -> void:
 	$AudioStreamPlayer2D.play()
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if not body.is_multiplayer_authority(): return
+	var inventory = get_tree().get_root().get_node("World/CanvasLayer/Inventory")
+	if "branch" in inventory.inventory and inventory.inventory["branch"] >= 1:
+		get_tree().get_root().get_node("World/CanvasLayer/ButtonTip").show_tip("e")
+
+
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	if not body.is_multiplayer_authority(): return
+	get_tree().get_root().get_node("World/CanvasLayer/ButtonTip").clear_tip()

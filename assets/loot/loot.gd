@@ -21,6 +21,7 @@ func _input(event: InputEvent) -> void:
 						get_tree().get_root().get_node("World/CanvasLayer/Inventory").inventory[item] += loot_contents[item]
 						get_tree().get_root().get_node("World/CanvasLayer/Inventory").update_item_list()
 					looted = true
+					get_tree().get_root().get_node("World/CanvasLayer/ButtonTip").clear_tip()
 					rpc("sync_looted_open")
 					
 					break
@@ -42,3 +43,14 @@ func sync_looted_open():
 	looted = true
 	$Sprite2D.visible = false
 	$CollisionShape2D.disabled = true
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if looted: return
+	if not body.is_multiplayer_authority(): return
+	get_tree().get_root().get_node("World/CanvasLayer/ButtonTip").show_tip("e")
+
+
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	if not body.is_multiplayer_authority(): return
+	get_tree().get_root().get_node("World/CanvasLayer/ButtonTip").clear_tip()

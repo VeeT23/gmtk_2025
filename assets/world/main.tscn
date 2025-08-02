@@ -1,9 +1,10 @@
-[gd_scene load_steps=62 format=4 uid="uid://b7jiphcimusao"]
+[gd_scene load_steps=63 format=4 uid="uid://b7jiphcimusao"]
 
 [ext_resource type="Script" uid="uid://cax8inqgk1gka" path="res://assets/world/world.gd" id="1_p0te5"]
 [ext_resource type="PackedScene" uid="uid://djljcsbd0b42u" path="res://ui/pause_menu.tscn" id="3_p0te5"]
 [ext_resource type="PackedScene" uid="uid://d2s1eohqjlwiv" path="res://ui/overlay/announcement.tscn" id="4_7j6ot"]
 [ext_resource type="PackedScene" uid="uid://dp5rmf147uk3x" path="res://ui/jump_scare.tscn" id="5_ohmqb"]
+[ext_resource type="PackedScene" uid="uid://bvanhcoo400yw" path="res://ui/button_tip.tscn" id="5_v8a77"]
 [ext_resource type="PackedScene" uid="uid://bywg6lhar3v55" path="res://ui/inventory.tscn" id="5_x3ab4"]
 [ext_resource type="Texture2D" uid="uid://bq0rf6whxytqx" path="res://assets/world/GrassTexture.png" id="6_4dexl"]
 [ext_resource type="Texture2D" uid="uid://r6edxyr3bv5s" path="res://assets/world/TileSet.png" id="7_2tkfd"]
@@ -286,7 +287,6 @@ size = Vector2(265.5, 8800.4)
 script = ExtResource("1_p0te5")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Inventory" parent="CanvasLayer" instance=ExtResource("5_x3ab4")]
 
@@ -294,6 +294,8 @@ visible = false
 mouse_filter = 1
 
 [node name="JumpScare" parent="CanvasLayer" instance=ExtResource("5_ohmqb")]
+
+[node name="ButtonTip" parent="CanvasLayer" instance=ExtResource("5_v8a77")]
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("3_p0te5")]
 metadata/_edit_use_anchors_ = true

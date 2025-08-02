@@ -14,9 +14,20 @@ func _input(event: InputEvent) -> void:
 						get_tree().get_root().get_node("World/CanvasLayer/Inventory").inventory[item] += loot_contents[item]
 						get_tree().get_root().get_node("World/CanvasLayer/Inventory").update_item_list()
 					get_tree().call_group("Enemy", "go_to",global_position)
+					get_tree().get_root().get_node("World/CanvasLayer/ButtonTip").clear_tip()
 					rpc("sync_looted_open")
 					break
 
 @rpc("any_peer", "call_local")
 func sync_looted_open():
 	queue_free()
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if not body.is_multiplayer_authority(): return
+	get_tree().get_root().get_node("World/CanvasLayer/ButtonTip").show_tip("e")
+
+
+func _on_body_exited(body: Node2D) -> void:
+	if not body.is_multiplayer_authority(): return
+	get_tree().get_root().get_node("World/CanvasLayer/ButtonTip").clear_tip()
