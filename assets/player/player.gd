@@ -73,7 +73,8 @@ func _input(event: InputEvent) -> void:
 		if "trap" in inv and inv["trap"] > 0:
 			inv_node.inventory["trap"] -= 1
 			print("Placing trap! Traps left:", inv["trap"])
-			rpc("spawn_trap", global_position)
+			# Call RPC to spawn trap on all peers
+			rpc("spawn_trap", global_position, get_multiplayer().get_unique_id())
 			get_tree().get_root().get_node("World/CanvasLayer/Inventory").update_item_list()
 		else:
 			print("No traps in inventory!")
@@ -87,11 +88,22 @@ func sync_position(pos: Vector2, rot : int, frame : int):
 	
 	move_and_slide()
 
-@rpc("any_peer")
-func spawn_trap(pos):
+@rpc("any_peer", "call_local")
+func spawn_trap(pos: Vector2, spawner_id: int):
 	var trap = trap_scene.instantiate()
 	trap.global_position = pos
-	get_tree().get_root().get_node("World").add_child(trap)
+	
+	# Set the trap's multiplayer authority to the server/host
+	# This ensures consistent behavior across all clients
+	if multiplayer.is_server():
+		trap.set_multiplayer_authority(1)  # Server authority
+	
+	# Add some unique identification to prevent duplicates
+	trap.name = "Trap_" + str(spawner_id) + "_" + str(Time.get_unix_time_from_system())
+	
+	get_tree().get_root().get_node("World").add_child(trap, true)
+	
+	print("Trap spawned by player ", spawner_id, " at position ", pos)
 
 func get_closest_enemy() -> CharacterBody2D:
 	var enemies : Array = get_tree().get_nodes_in_group("Enemy")
