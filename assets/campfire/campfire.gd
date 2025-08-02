@@ -46,7 +46,8 @@ func add_branch():
 
 func checkfinish():
 	if branches >= 5:
-		get_tree().get_root().get_node("World").reset_scene()
+		# Only send the RPC to reset the scene on all clients (including server)
+		rpc("sync_finish")
 
 # RPC to synchronize state across all peers
 @rpc("any_peer", "call_local")
@@ -54,6 +55,11 @@ func sync(new_branches: int, new_texture_scale: float):
 	branches = new_branches
 	$PointLight2D.texture_scale = new_texture_scale
 	$Label.text = "Branches: " + str(branches) + " / 5"
+	
+
+@rpc("any_peer", "call_local")
+func sync_finish():
+	get_tree().get_root().get_node("World").reset_scene()
 
 func _physics_process(_delta: float) -> void:
 	var players = get_tree().get_nodes_in_group("Player")
