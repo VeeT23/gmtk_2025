@@ -13,6 +13,7 @@ var rng = RandomNumberGenerator.new()
 var players := {}
 
 var current_day : int = 1
+var twig_world_initialized = false
 
 func _ready() -> void:
 	
@@ -26,7 +27,7 @@ func _ready() -> void:
 	place_twigs()
 	place_trees()
 	if multiplayer.is_server():
-		
+		twig_world_initialized = true
 		# Spawn all connected players after world is ready
 		await get_tree().process_frame
 		for player_id in Network.connected_players.keys():
@@ -79,15 +80,33 @@ func _on_day_night_timer_timeout() -> void:
 
 func place_twigs():
 	var used_cells = terrain_tilemap.get_used_cells_by_id(1)
+	print("Terrain cells found: ", used_cells.size())
+	
 	for cell in used_cells:
-		if rng.randf() < 0.5:
+		# Use deterministic seeding for consistent results
+		var cell_seed = Network.server_seed + cell.x * 1000 + cell.y
+		var temp_rng = RandomNumberGenerator.new()
+		temp_rng.seed = cell_seed
+		
+		if temp_rng.randf() < 0.5:
 			add_twig(cell)
+	
+	print("Twigs placed: ", get_tree().get_nodes_in_group("Loot").size())
 
 func add_twig(pos: Vector2):
 	var twig = TWIG_SCENE.instantiate()
 	var tile_size = terrain_tilemap.tile_set.tile_size.x
 	var real_pos = pos * terrain_tilemap.scale.x * tile_size
-	var offset_pos = Vector2(rng.randi_range(-tile_size / 2.0, tile_size / 2.0),rng.randi_range(-tile_size / 2.0, tile_size / 2.0))
+	
+	# Use deterministic offset based on position
+	var pos_seed = Network.server_seed + int(pos.x) * 1000 + int(pos.y)
+	var temp_rng = RandomNumberGenerator.new()
+	temp_rng.seed = pos_seed
+	
+	var offset_pos = Vector2(
+		temp_rng.randi_range(-tile_size / 2.0, tile_size / 2.0),
+		temp_rng.randi_range(-tile_size / 2.0, tile_size / 2.0)
+	)
 	twig.global_position = offset_pos + real_pos
 	add_child(twig)
 
@@ -108,29 +127,52 @@ func add_tree(pos: Vector2):
 @rpc("any_peer", "reliable")
 func request_world_data():
 	if multiplayer.is_server():
-		var twig_positions = []
+		var twig_data = []
 		var tree_positions = []
 		
-		# Collect all twig positions
+		# Collect all twig data (position and sprite frame)
 		for child in get_children():
-			if child.is_in_group("Loot"):  # Assuming twigs are in Loot group
-				twig_positions.append(child.global_position)
+			if child.scene_file_path == "res://assets/twig/twig.tscn":
+				var twig_info = {
+					"position": child.global_position,
+					"frame": child.get_node("Sprite2D").frame if child.has_node("Sprite2D") else 0
+				}
+				twig_data.append(twig_info)
 			elif child.name.begins_with("Tree"):  # Or however trees are identified
 				tree_positions.append(child.global_position)
 		
 		var sender_id = multiplayer.get_remote_sender_id()
-		rpc_id(sender_id, "receive_world_data", twig_positions, tree_positions)
+		rpc_id(sender_id, "receive_world_data", twig_data, tree_positions)
 
 @rpc("any_peer", "reliable")
-func receive_world_data(twig_positions: Array, tree_positions: Array):
-	# Spawn twigs at synced positions
-	for pos in twig_positions:
+func receive_world_data(twig_data: Array, tree_positions: Array):
+	if twig_world_initialized:
+		return
+		
+	print("Receiving world data: ", twig_data.size(), " twigs, ", tree_positions.size(), " trees")
+	
+	# Clear only twigs that were spawned by client
+	for child in get_children():
+		if child.scene_file_path == "res://assets/twig/twig.tscn":
+			child.queue_free()
+	
+	await get_tree().process_frame  # Wait for cleanup
+	
+	# Spawn twigs at synced positions with correct properties
+	for twig_info in twig_data:
 		var twig = TWIG_SCENE.instantiate()
-		twig.global_position = pos
+		twig.global_position = twig_info.position
 		add_child(twig)
+		
+		# Set the sprite frame after the twig is added to the scene
+		await get_tree().process_frame
+		if twig.has_node("Sprite2D"):
+			twig.get_node("Sprite2D").frame = twig_info.frame
 	
 	# Spawn trees at synced positions
 	for pos in tree_positions:
 		var tree = TREE_SCENE.instantiate()
 		tree.global_position = pos
 		add_child(tree)
+	
+	twig_world_initialized = true
