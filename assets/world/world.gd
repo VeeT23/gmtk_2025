@@ -68,7 +68,7 @@ func reset_scene():
 		$Enemy.global_position = $Enemy.starting_pos
 		$Enemy.inactive = true
 		$AudioStreamPlayer2D.play()
-		await get_tree().create_timer(11).timeout
+		await get_tree().create_timer(6).timeout
 		get_tree().quit()
 	else:
 		current_day += 1
