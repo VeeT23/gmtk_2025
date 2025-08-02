@@ -56,7 +56,7 @@ func update_animation(direction: Vector2) -> void:
 			$AnimationPlayer.play("walk_down")
 
 func _input(event: InputEvent) -> void:
-	
+	if not is_multiplayer_authority(): return
 	var x = Input.get_joy_axis(0, JOY_AXIS_RIGHT_X)
 	var y = Input.get_joy_axis(0, JOY_AXIS_RIGHT_Y)
 	var direction = Vector2(x, y)
@@ -73,7 +73,7 @@ func _input(event: InputEvent) -> void:
 		if "trap" in inv and inv["trap"] > 0:
 			inv_node.inventory["trap"] -= 1
 			print("Placing trap! Traps left:", inv["trap"])
-			spawn_trap()
+			rpc("spawn_trap", global_position)
 			get_tree().get_root().get_node("World/CanvasLayer/Inventory").update_item_list()
 		else:
 			print("No traps in inventory!")
@@ -87,9 +87,10 @@ func sync_position(pos: Vector2, rot : int, frame : int):
 	
 	move_and_slide()
 
-func spawn_trap():
+@rpc("any_peer")
+func spawn_trap(pos):
 	var trap = trap_scene.instantiate()
-	trap.global_position = global_position
+	trap.global_position = pos
 	get_tree().get_root().get_node("World").add_child(trap)
 
 func get_closest_enemy() -> CharacterBody2D:

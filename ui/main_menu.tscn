@@ -98,6 +98,7 @@ layout_mode = 2
 theme_override_colors/font_placeholder_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("3_8uxxo")
 theme_override_font_sizes/font_size = 8
+text = "localhost"
 placeholder_text = "Enter Ip"
 
 [node name="JoinButton" parent="CanvasLayer/Menus/Join" instance=ExtResource("3_rmr83")]
