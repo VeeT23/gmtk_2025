@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dknmk1mh4kw7r"]
+[gd_scene load_steps=15 format=3 uid="uid://dknmk1mh4kw7r"]
 
 [ext_resource type="Script" uid="uid://b0rihlkdq24ew" path="res://assets/enemy/enemy.gd" id="1_4nxta"]
 [ext_resource type="Texture2D" uid="uid://bcokden0ulm2g" path="res://assets/enemy/enemy_head.png" id="2_4nxta"]
@@ -71,6 +71,13 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
 
+[sub_resource type="Environment" id="Environment_uu6ev"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 8.0
+glow_strength = 2.0
+glow_mix = 1.0
+
 [node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
 z_index = 1
 collision_layer = 4
@@ -127,7 +134,8 @@ position = Vector2(-67, -101)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="HeadPosition"]
-modulate = Color(2, 0, 0.11, 1)
+modulate = Color(6.629, 0, 0, 1)
+self_modulate = Color(100, 100, 100, 1)
 light_mask = 0
 texture_filter = 1
 position = Vector2(20, -20)
@@ -148,6 +156,9 @@ stream = ExtResource("3_uu6ev")
 pitch_scale = 0.81
 autoplay = true
 attenuation = 12.7279
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_uu6ev")
 
 [connection signal="timeout" from="TargetingUpdate" to="." method="_on_targeting_update_timeout"]
 [connection signal="body_entered" from="Hurt_Box" to="." method="_on_hurt_box_body_entered"]

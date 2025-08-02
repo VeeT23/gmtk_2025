@@ -1,6 +1,6 @@
 extends Node2D
 
-const DAY_DURATION_MINUTES : float = 4.0
+const DAY_DURATION_MINUTES : float = 1.0
 
 const PLAYER_SCENE : PackedScene = preload("res://assets/player/player.tscn")
 const TWIG_SCENE : PackedScene = preload("res://assets/twig/twig.tscn")
