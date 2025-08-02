@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://c35weqkwq7h1r"]
+[gd_scene load_steps=7 format=3 uid="uid://c35weqkwq7h1r"]
 
 [ext_resource type="Script" uid="uid://c8xolkei5fkrl" path="res://ui/lobby.gd" id="1_hgmly"]
 [ext_resource type="Animation" uid="uid://dhwym8avp4g0m" path="res://ui/fade_out.res" id="2_4sfkc"]
+[ext_resource type="Texture2D" uid="uid://cvfajoevvvi7v" path="res://ui/sprites/C7FA09AC-C54E-4432-B424-232301A644E1.PNG" id="3_4sfkc"]
 
 [sub_resource type="Animation" id="Animation_wk0pr"]
 length = 0.001
@@ -73,10 +74,11 @@ libraries = {
 }
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
-offset_left = 1.0
-offset_top = 3.0
-offset_right = 641.0
-offset_bottom = 363.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="BoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer"]
 layout_mode = 2
@@ -112,5 +114,10 @@ color = Color(0, 0, 0, 0)
 libraries = {
 &"": SubResource("AnimationLibrary_rmr83")
 }
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0.687467, 0.499992)
+scale = Vector2(0.158051, 0.092041)
+texture = ExtResource("3_4sfkc")
 
 [connection signal="pressed" from="CanvasLayer/CenterContainer/BoxContainer/Start_Button" to="." method="_on_start_button_pressed"]
