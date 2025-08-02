@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dhws20vvfl808"]
+[gd_scene load_steps=6 format=3 uid="uid://dhws20vvfl808"]
 
 [ext_resource type="Script" uid="uid://mbpa3tl87q6g" path="res://assets/loot/loot.gd" id="1_2ak5w"]
 [ext_resource type="Texture2D" uid="uid://b5cmu2irha15j" path="res://assets/loot/Crate.png" id="2_b6jsm"]
+[ext_resource type="AudioStream" uid="uid://cd6f3t7enaela" path="res://assets/loot/crate_open.wav" id="3_brkl3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vseu0"]
 size = Vector2(113.5, 140)
@@ -28,3 +29,8 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(5, 0)
 shape = SubResource("CircleShape2D_spme1")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_brkl3")
+
+[connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]

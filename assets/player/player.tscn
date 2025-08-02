@@ -158,7 +158,6 @@ libraries = {
 
 [node name="HeartBeat" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_ouxva")
-autoplay = true
 attenuation = 14.42
 parameters/looping = true
 
@@ -167,3 +166,4 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="finished" from="HeartBeat" to="." method="_on_heart_beat_finished"]

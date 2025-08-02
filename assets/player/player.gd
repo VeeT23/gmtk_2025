@@ -13,6 +13,7 @@ func _ready() -> void:
 	
 	if is_multiplayer_authority():
 		$Camera2D.make_current()
+		$HeartBeat.play()
 
 func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority(): return
@@ -118,3 +119,8 @@ func get_closest_enemy() -> CharacterBody2D:
 				min_distance = d
 				closest = e
 	return closest
+
+
+func _on_heart_beat_finished() -> void:
+	if is_multiplayer_authority():
+		$HeartBeat.play()

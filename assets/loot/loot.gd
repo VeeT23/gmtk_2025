@@ -22,6 +22,7 @@ func _input(event: InputEvent) -> void:
 						get_tree().get_root().get_node("World/CanvasLayer/Inventory").update_item_list()
 				looted = true
 				rpc("sync_looted_open")
+				
 				break
 
 func reset():
@@ -37,6 +38,7 @@ func sync_looted_close():
 
 @rpc("any_peer", "call_local")
 func sync_looted_open():
+	$AudioStreamPlayer2D.play()
 	looted = true
 	$Sprite2D.visible = false
 	$CollisionShape2D.disabled = true
