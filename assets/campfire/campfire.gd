@@ -12,32 +12,37 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_released("interact"):
 		for body in $Area2D.get_overlapping_bodies():
-			if body.is_in_group("Player"):
-				if body.is_multiplayer_authority():
-					# Client or host with authority interacts
-					var inventory = get_tree().get_root().get_node("World/CanvasLayer/Inventory")
-					if "branch" in inventory.inventory and inventory.inventory["branch"] >= 1:
-						# Request server to add branch
-						rpc_id(1, "request_add_branch") # Call server
+			if body.is_in_group("Player") and body.is_multiplayer_authority():
+				var inventory = get_tree().get_root().get_node("World/CanvasLayer/Inventory")
+				if "branch" in inventory.inventory and inventory.inventory["branch"] >= 1:
+					# Deduct branch locally first
+					inventory.inventory["branch"] -= 1
+					inventory.update_item_list()
+
+					if multiplayer.is_server():
+						# Host directly adds the branch
+						add_branch()
+					else:
+						# Client asks the server to add a branch
+						rpc_id(1, "request_add_branch")
 				break
 
-# Server-only function to handle branch addition
-@rpc("any_peer", "call_local")
+# Called on server when a client requests branch addition
+@rpc("any_peer")
 func request_add_branch():
-	if not is_multiplayer_authority():
-		return # Only server processes this
-	var inventory = get_tree().get_root().get_node("World/CanvasLayer/Inventory")
-	if "branch" in inventory.inventory and inventory.inventory["branch"] >= 1:
-		print("ADDED")
-		branches += 1
-		inventory.inventory["branch"] -= 1
-		$PointLight2D.texture_scale += 1
-		$Label.text = "Branches: " + str(branches) + " / 5"
-		strength = branches * 100 + 400
-		inventory.update_item_list()
-		checkfinish()
-		# Sync updated state to all clients
-		rpc("sync", branches, $PointLight2D.texture_scale)
+	if not multiplayer.is_server():
+		return # Only server handles this
+	add_branch()
+
+# Handles branch logic (server only)
+func add_branch():
+	branches += 1
+	$PointLight2D.texture_scale += 1
+	$Label.text = "Branches: " + str(branches) + " / 5"
+	strength = branches * 100 + 400
+	checkfinish()
+	# Sync updated state to all clients
+	rpc("sync", branches, $PointLight2D.texture_scale)
 
 func checkfinish():
 	if branches >= 5:
@@ -54,11 +59,7 @@ func _physics_process(_delta: float) -> void:
 	var players = get_tree().get_nodes_in_group("Player")
 	for player in players:
 		if player.is_multiplayer_authority():
-			if player.global_position.y < global_position.y:
-				z_index = 4
-			else:
-				z_index = 1
-
+			z_index = 4 if player.global_position.y < global_position.y else 1
 
 func _on_audio_stream_player_2d_finished() -> void:
 	$AudioStreamPlayer2D.play()

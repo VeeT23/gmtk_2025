@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-
 const SPEED = 300.0
 var speed = SPEED
 const JUMP_VELOCITY = -500.0
@@ -55,7 +54,6 @@ func update_animation(direction: Vector2) -> void:
 	elif direction.y > 0.0:
 		if $AnimationPlayer.assigned_animation != "walk_down":
 			$AnimationPlayer.play("walk_down")
-
 
 func _input(event: InputEvent) -> void:
 	
