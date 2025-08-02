@@ -21,10 +21,10 @@ func _input(event: InputEvent) -> void:
 					for item in loot_contents.keys():
 						get_tree().get_root().get_node("World/CanvasLayer/Inventory").inventory[item] += loot_contents[item]
 						get_tree().get_root().get_node("World/CanvasLayer/Inventory").update_item_list()
-				looted = true
-				rpc("sync_looted_open")
-				
-				break
+					looted = true
+					rpc("sync_looted_open")
+					
+					break
 
 func reset():
 	get_node("Sprite2D").visible = true
