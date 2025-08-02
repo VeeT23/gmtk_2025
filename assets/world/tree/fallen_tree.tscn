@@ -11,6 +11,7 @@ collision_mask = 2
 script = ExtResource("1_vlesv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 4
 texture_filter = 1
 position = Vector2(0, -68)
 scale = Vector2(5, 5)

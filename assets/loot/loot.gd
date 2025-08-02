@@ -4,7 +4,6 @@ extends StaticBody2D
 @export var set_frame = 0
 var looted = false
 var loot_contents = {
-	"ammo": 25,
 	"trap": 1
 }
 
@@ -28,7 +27,6 @@ func _input(event: InputEvent) -> void:
 func reset():
 	get_node("Sprite2D").visible = true
 	get_node("CollisionShape2D").disabled = false
-	get_node("Sprite2D/AnimationPlayer").play("RESET")
 	looted = false
 
 @rpc("any_peer", "call_local")

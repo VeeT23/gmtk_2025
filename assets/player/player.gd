@@ -26,9 +26,6 @@ func _physics_process(_delta: float) -> void:
 	else:
 		$HeartBeat.volume_db = -INF  # Mute if no enemies
 	
-	$Node2D.rotation = $Node2D.global_position.angle_to_point(get_global_mouse_position())
-	
-	
 	var input_vector = Vector2(
 		Input.get_action_strength("right") - Input.get_action_strength("left"),
 		Input.get_action_strength("down") - Input.get_action_strength("up")
@@ -61,9 +58,16 @@ func update_animation(direction: Vector2) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("reset_debug"):
-		get_tree().get_root().get_node("World").reset_scene()
-
+	
+	var x = Input.get_joy_axis(0, JOY_AXIS_RIGHT_X)
+	var y = Input.get_joy_axis(0, JOY_AXIS_RIGHT_Y)
+	var direction = Vector2(x, y)
+	if direction.length() > 0.25:
+		$Node2D.rotation = direction.angle()
+	elif event is InputEventMouseMotion:
+		$Node2D.rotation = $Node2D.global_position.angle_to_point(get_global_mouse_position())
+	
+	
 	if event.is_action_pressed("place_trap"):
 		var inv_node = get_tree().get_root().get_node("World/CanvasLayer/Inventory")
 		var inv = inv_node.inventory if inv_node.has_method("inventory") == false else inv_node.get("inventory")

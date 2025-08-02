@@ -58,3 +58,7 @@ func _physics_process(_delta: float) -> void:
 				z_index = 4
 			else:
 				z_index = 1
+
+
+func _on_audio_stream_player_2d_finished() -> void:
+	$AudioStreamPlayer2D.play()

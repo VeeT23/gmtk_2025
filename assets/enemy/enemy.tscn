@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dknmk1mh4kw7r"]
+[gd_scene load_steps=14 format=3 uid="uid://dknmk1mh4kw7r"]
 
 [ext_resource type="Script" uid="uid://b0rihlkdq24ew" path="res://assets/enemy/enemy.gd" id="1_4nxta"]
 [ext_resource type="Texture2D" uid="uid://bcokden0ulm2g" path="res://assets/enemy/enemy_head.png" id="2_4nxta"]
@@ -14,7 +14,8 @@ radius = 159.754
 radius = 817.039
 
 [sub_resource type="Gradient" id="Gradient_4nxta"]
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+offsets = PackedFloat32Array(0, 0.370787, 1)
+colors = PackedColorArray(0.683077, 0.683077, 0.683077, 1, 0.493546, 0.493545, 0.493545, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_uu6ev"]
 gradient = SubResource("Gradient_4nxta")
@@ -60,6 +61,16 @@ _data = {
 &"RESET": SubResource("Animation_uu6ev")
 }
 
+[sub_resource type="Gradient" id="Gradient_uu6ev"]
+offsets = PackedFloat32Array(0, 0.494382, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.949438, 0.949438, 0.949438, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_x63uy"]
+gradient = SubResource("Gradient_uu6ev")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
 [node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
 z_index = 1
 collision_layer = 4
@@ -100,7 +111,8 @@ debug_color = Color(0.67639, 0.500503, 0.205776, 0.42)
 
 [node name="Void" type="PointLight2D" parent="."]
 scale = Vector2(2, 2)
-energy = 2.0
+color = Color(0.685367, 0.959138, 1, 1)
+energy = 1.5
 blend_mode = 1
 texture = SubResource("GradientTexture2D_uu6ev")
 texture_scale = 4.18
@@ -115,12 +127,17 @@ position = Vector2(-67, -101)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="HeadPosition"]
-modulate = Color(0.827451, 0, 0.109804, 1)
+modulate = Color(2, 0, 0.11, 1)
 light_mask = 0
 texture_filter = 1
 position = Vector2(20, -20)
-scale = Vector2(2.5, 2.5)
+scale = Vector2(2, 2)
 texture = ExtResource("2_4nxta")
+
+[node name="PointLight2D" type="PointLight2D" parent="HeadPosition/Sprite2D"]
+color = Color(1, 0, 0.0392157, 1)
+texture = SubResource("GradientTexture2D_x63uy")
+texture_scale = 2.7
 
 [node name="JitterEffect" type="Timer" parent="."]
 wait_time = 0.1
@@ -130,11 +147,11 @@ autostart = true
 stream = ExtResource("3_uu6ev")
 pitch_scale = 0.81
 autoplay = true
-max_distance = 4096.0
-attenuation = 4.5
+attenuation = 12.7279
 
 [connection signal="timeout" from="TargetingUpdate" to="." method="_on_targeting_update_timeout"]
 [connection signal="body_entered" from="Hurt_Box" to="." method="_on_hurt_box_body_entered"]
 [connection signal="body_entered" from="Target_Box" to="." method="_on_target_box_body_entered"]
 [connection signal="body_exited" from="Target_Box" to="." method="_on_target_box_body_exited"]
 [connection signal="timeout" from="JitterEffect" to="." method="_on_jitter_effect_timeout"]
+[connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]

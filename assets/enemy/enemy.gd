@@ -154,3 +154,7 @@ func in_range_of_fire(target_pos : Vector2):
 
 func _on_jitter_effect_timeout() -> void:
 	$HeadPosition/Sprite2D.position = Vector2(rng.randi_range(-20,20), rng.randi_range(-20,20))
+
+
+func _on_audio_stream_player_2d_finished() -> void:
+	$AudioStreamPlayer2D.play()
