@@ -30,7 +30,7 @@ func _ready() -> void:
 	else:
 		# Request world data from server
 		rpc_id(1, "request_world_data")
-	
+	get_tree().call_group("Obstacle", "new_day", current_day)
 	$DayNightTimer.start(DAY_DURATION_MINUTES * 60.0)
 
 func spawn_player(id: int):
@@ -62,6 +62,7 @@ func reset_scene():
 	$CanvasLayer/Announcement.announce("Day " + str(current_day))
 	await  get_tree().create_timer(1).timeout
 	get_tree().call_group("Loot", "reset")
+	get_tree().call_group("Obstacle", "new_day", current_day)
 	$DayNightTimer.start(DAY_DURATION_MINUTES * 60.0)
 	
 	

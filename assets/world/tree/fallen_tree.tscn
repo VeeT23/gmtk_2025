@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhetxtdmefh78"]
+
+[ext_resource type="Script" uid="uid://crvesf6mymy1b" path="res://assets/world/tree/fallen_tree.gd" id="1_vlesv"]
+[ext_resource type="Texture2D" uid="uid://buvc8d2m6bot7" path="res://assets/world/tree/FallenTree.png" id="2_guhnm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kdvcm"]
+size = Vector2(779, 200)
+
+[node name="FallenTree" type="StaticBody2D" groups=["Obstacle"]]
+collision_mask = 2
+script = ExtResource("1_vlesv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -68)
+scale = Vector2(5, 5)
+texture = ExtResource("2_guhnm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_kdvcm")

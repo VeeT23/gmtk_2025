@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwfimujsqddjv"
-path="res://.godot/imported/PlayerSprite.png-384eba2dd47a25d4967ac0466ca85779.ctex"
+uid="uid://buvc8d2m6bot7"
+path="res://.godot/imported/FallenTree.png-a77812519d83c5337e66e04029fac4de.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player/PlayerSprite.png"
-dest_files=["res://.godot/imported/PlayerSprite.png-384eba2dd47a25d4967ac0466ca85779.ctex"]
+source_file="res://assets/world/tree/FallenTree.png"
+dest_files=["res://.godot/imported/FallenTree.png-a77812519d83c5337e66e04029fac4de.ctex"]
 
 [params]
 

@@ -18,6 +18,7 @@ var investigating = false
 var targeting = false
 
 func _ready() -> void:
+	$AnimationPlayer.play("Idle")
 	rng.randomize()
 	starting_pos = global_position
 	nav_agent.velocity_computed.connect(_on_velocity_computed)
@@ -70,6 +71,9 @@ func _on_target_reached() -> void:
 func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority():
 		return
+	
+	
+	
 	if inactive: 
 		nav_agent.set_velocity(Vector2.ZERO)
 		return
@@ -83,6 +87,13 @@ func _physics_process(_delta: float) -> void:
 func _on_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
 	move_and_slide()
+	if velocity.x < 0:
+		$HeadPosition.position = Vector2(-67,-101)
+		$HeadPosition/Sprite2D.flip_h = false
+	elif velocity.x > 0:
+		$HeadPosition.position = Vector2(67,-101)
+		$HeadPosition/Sprite2D.flip_h = true
+	
 
 	if multiplayer.multiplayer_peer and multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED:
 		rpc("sync_position", global_position)
@@ -139,3 +150,7 @@ func in_range_of_fire(target_pos : Vector2):
 			print("Protected by campfire at ",fire.global_position," Distance: ", distance_to_fire, " <= ", fire.strength)
 			return true
 	return false
+
+
+func _on_jitter_effect_timeout() -> void:
+	$HeadPosition/Sprite2D.position = Vector2(rng.randi_range(-20,20), rng.randi_range(-20,20))

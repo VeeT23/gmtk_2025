@@ -1,10 +1,15 @@
 extends StaticBody2D
 
+
+@export var set_frame = 0
 var looted = false
 var loot_contents = {
 	"ammo": 25,
 	"trap": 1
 }
+
+func _ready() -> void:
+	$Sprite2D.frame = set_frame
 
 func _input(event: InputEvent) -> void:
 	if looted: return
@@ -28,15 +33,12 @@ func reset():
 
 @rpc("any_peer", "call_local")
 func sync_looted_close():
-	$Sprite2D/AnimationPlayer.play("RESET")
 	looted = false
 	$Sprite2D.visible = true
 	$CollisionShape2D.disabled = false
 
 @rpc("any_peer", "call_local")
 func sync_looted_open():
-	$Sprite2D/AnimationPlayer.play("open_chest")
 	looted = true
-	await $Sprite2D/AnimationPlayer.animation_finished
 	$Sprite2D.visible = false
 	$CollisionShape2D.disabled = true

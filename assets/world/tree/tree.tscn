@@ -8,8 +8,8 @@ radius = 9.0
 height = 70.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gaqds"]
-radius = 143.0
-height = 452.0
+radius = 229.0
+height = 550.0
 
 [sub_resource type="Animation" id="Animation_gaqds"]
 length = 0.001
@@ -109,7 +109,6 @@ texture = ExtResource("1_twj81")
 offset = Vector2(-2.4, -68)
 
 [node name="TransparencyArea" type="Area2D" parent="."]
-visible = false
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TransparencyArea"]

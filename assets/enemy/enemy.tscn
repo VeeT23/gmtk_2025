@@ -1,23 +1,70 @@
-[gd_scene load_steps=6 format=3 uid="uid://dknmk1mh4kw7r"]
+[gd_scene load_steps=12 format=3 uid="uid://dknmk1mh4kw7r"]
 
 [ext_resource type="Script" uid="uid://b0rihlkdq24ew" path="res://assets/enemy/enemy.gd" id="1_4nxta"]
-[ext_resource type="Texture2D" uid="uid://djgvq6j03md4n" path="res://icon.svg" id="2_o5tp1"]
+[ext_resource type="Texture2D" uid="uid://bcokden0ulm2g" path="res://assets/enemy/enemy_head.png" id="2_4nxta"]
+[ext_resource type="AudioStream" uid="uid://b0njxfkw86axh" path="res://sfx/static_fixed.wav" id="3_uu6ev"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0hol4"]
 size = Vector2(128, 128)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4nxta"]
-size = Vector2(131, 130)
+[sub_resource type="CircleShape2D" id="CircleShape2D_uu6ev"]
+radius = 159.754
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4nxta"]
 radius = 817.039
+
+[sub_resource type="Gradient" id="Gradient_4nxta"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_uu6ev"]
+gradient = SubResource("Gradient_4nxta")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Animation" id="Animation_4nxta"]
+resource_name = "Idle"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HeadPosition/Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.4, 0.633333, 0.866667, 1.03333, 1.2, 1.26667, 1.33333, 1.4, 1.66667, 1.8, 1.9, 1.96667, 2.13333, 2.26667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0.0, 0.539307, 0.0, 0.0, 0.20944, 0.436332, -0.436332, 0.436332, 0.0, 0.436332, 0.0, 0.0, 1.5708, 0.0, 1.5708, 3.14159, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_uu6ev"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HeadPosition/Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x63uy"]
+_data = {
+&"Idle": SubResource("Animation_4nxta"),
+&"RESET": SubResource("Animation_uu6ev")
+}
 
 [node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
 z_index = 1
 collision_layer = 4
 collision_mask = 16
 script = ExtResource("1_4nxta")
-metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_0hol4")
@@ -28,7 +75,6 @@ avoidance_enabled = true
 max_speed = 100000.0
 avoidance_layers = 3
 avoidance_mask = 3
-debug_enabled = true
 debug_path_custom_line_width = 9.43
 
 [node name="TargetingUpdate" type="Timer" parent="."]
@@ -41,7 +87,7 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurt_Box"]
 position = Vector2(-0.5, 0)
-shape = SubResource("RectangleShape2D_4nxta")
+shape = SubResource("CircleShape2D_uu6ev")
 debug_color = Color(0.716004, 0.449734, 0.476738, 0.42)
 
 [node name="Target_Box" type="Area2D" parent="."]
@@ -52,11 +98,43 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_4nxta")
 debug_color = Color(0.67639, 0.500503, 0.205776, 0.42)
 
-[node name="Icon" type="Sprite2D" parent="."]
-modulate = Color(1, 0, 0, 1)
-texture = ExtResource("2_o5tp1")
+[node name="Void" type="PointLight2D" parent="."]
+scale = Vector2(2, 2)
+energy = 2.0
+blend_mode = 1
+texture = SubResource("GradientTexture2D_uu6ev")
+texture_scale = 4.18
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_x63uy")
+}
+
+[node name="HeadPosition" type="Node2D" parent="."]
+position = Vector2(-67, -101)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="HeadPosition"]
+modulate = Color(0.827451, 0, 0.109804, 1)
+light_mask = 0
+texture_filter = 1
+position = Vector2(20, -20)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("2_4nxta")
+
+[node name="JitterEffect" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_uu6ev")
+pitch_scale = 0.81
+autoplay = true
+max_distance = 4096.0
+attenuation = 4.5
 
 [connection signal="timeout" from="TargetingUpdate" to="." method="_on_targeting_update_timeout"]
 [connection signal="body_entered" from="Hurt_Box" to="." method="_on_hurt_box_body_entered"]
 [connection signal="body_entered" from="Target_Box" to="." method="_on_target_box_body_entered"]
 [connection signal="body_exited" from="Target_Box" to="." method="_on_target_box_body_exited"]
+[connection signal="timeout" from="JitterEffect" to="." method="_on_jitter_effect_timeout"]

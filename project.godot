@@ -38,6 +38,7 @@ World=""
 Loot=""
 Disposable=""
 Fire=""
+Obstacle=""
 
 [input]
 

@@ -17,6 +17,7 @@ func _on_transparency_area_body_exited(body: Node2D) -> void:
 	$AnimationPlayer.play_backwards("fade")
 
 func _physics_process(_delta: float) -> void:
+	if not is_multiplayer_authority(): return
 	var players = get_tree().get_nodes_in_group("Player") #make player and tree layer correctly
 	for player in players:
 		if player.is_multiplayer_authority():
