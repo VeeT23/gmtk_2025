@@ -16,6 +16,10 @@ var current_day : int = 1
 
 func _ready() -> void:
 	
+	$ExtrasAutoPlace.hide()
+	$PathfindingMask.hide()
+	
+	
 	rng.seed = Network.server_seed
 	print(rng.seed)
 	$CanvasLayer.show()
