@@ -5,7 +5,6 @@ var loot_contents = {
 }
 
 func _input(event: InputEvent) -> void:
-	if not is_multiplayer_authority(): return
 	if event.is_action_pressed("interact"):
 		for body in get_overlapping_bodies():
 			if body.is_in_group("Player"):
