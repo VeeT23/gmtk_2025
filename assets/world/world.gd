@@ -81,7 +81,6 @@ func place_twigs():
 	var used_cells = terrain_tilemap.get_used_cells_by_id(1)
 	for cell in used_cells:
 		if rng.randf() < 0.5:
-			print(cell)
 			add_twig(cell)
 
 func add_twig(pos: Vector2):

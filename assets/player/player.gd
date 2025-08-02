@@ -21,7 +21,7 @@ func _physics_process(_delta: float) -> void:
 	var closest_enemy = get_closest_enemy()
 	if closest_enemy:
 		var distance_to_enemy = global_position.distance_to(closest_enemy.global_position)
-		$HeartBeat.volume_db = clamp(remap(distance_to_enemy, 0, 2000, 20, -20), -INF, 20)
+		$HeartBeat.volume_db = clamp(remap(distance_to_enemy, 0, 2000, 20, -20), -20, 20)
 	else:
 		$HeartBeat.volume_db = -INF  # Mute if no enemies
 	
