@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED = 30000.0
+const SPEED = 300.0
 var speed = SPEED
 
 var id
