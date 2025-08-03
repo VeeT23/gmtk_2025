@@ -349,7 +349,7 @@ tile_set = SubResource("TileSet_v8a77")
 metadata/_edit_lock_ = true
 
 [node name="Enemy" parent="." instance=ExtResource("8_gc4wl")]
-position = Vector2(-4116, 5901)
+position = Vector2(-5205, 6795)
 
 [node name="Campfire" parent="." instance=ExtResource("12_lh4wc")]
 position = Vector2(2.38419e-07, -44)

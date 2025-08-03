@@ -11,7 +11,7 @@ var target_player: CharacterBody2D = null
 
 var starting_pos: Vector2 = Vector2.ZERO
 
-var inactive = false
+var inactive = true
 
 var roaming = true
 var investigating = false

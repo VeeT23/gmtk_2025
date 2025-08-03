@@ -134,7 +134,7 @@ position = Vector2(-67, -101)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="HeadPosition"]
-modulate = Color(6.629, 0, 0, 1)
+modulate = Color(0.0117647, 0, 0, 1)
 self_modulate = Color(100, 100, 100, 1)
 light_mask = 0
 texture_filter = 1
