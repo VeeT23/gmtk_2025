@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://ddbxenocco7fj"]
 
 [ext_resource type="Script" uid="uid://b0yo5o0058id" path="res://assets/player/player.gd" id="1_onrkg"]
-[ext_resource type="Texture2D" uid="uid://cwfimujsqddjv" path="res://assets/player/PlayerSprite.PNG" id="2_ouxva"]
+[ext_resource type="Texture2D" uid="uid://cwfimujsqddjv" path="res://assets/player/PlayerSprite.png" id="2_ouxva"]
 [ext_resource type="Texture2D" uid="uid://tlkwf5drgcoy" path="res://assets/player/FlashlightLightMask.png" id="3_v2miy"]
 [ext_resource type="AudioStream" uid="uid://b580wnmbxn647" path="res://sfx/heart_beat_new.mp3" id="4_ouxva"]
 
@@ -160,10 +160,6 @@ libraries = {
 stream = ExtResource("4_ouxva")
 attenuation = 14.42
 parameters/looping = true
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="finished" from="HeartBeat" to="." method="_on_heart_beat_finished"]

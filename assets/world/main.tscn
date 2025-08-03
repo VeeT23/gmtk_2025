@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://djljcsbd0b42u" path="res://ui/pause_menu.tscn" id="3_p0te5"]
 [ext_resource type="PackedScene" uid="uid://d2s1eohqjlwiv" path="res://ui/overlay/announcement.tscn" id="4_7j6ot"]
 [ext_resource type="PackedScene" uid="uid://dp5rmf147uk3x" path="res://ui/jump_scare.tscn" id="5_ohmqb"]
-[ext_resource type="PackedScene" path="res://ui/button_tip.tscn" id="5_v8a77"]
+[ext_resource type="PackedScene" uid="uid://bvanhcoo400yw" path="res://ui/button_tip.tscn" id="5_v8a77"]
 [ext_resource type="PackedScene" uid="uid://bywg6lhar3v55" path="res://ui/inventory.tscn" id="5_x3ab4"]
 [ext_resource type="Texture2D" uid="uid://bq0rf6whxytqx" path="res://assets/world/GrassTexture.png" id="6_4dexl"]
 [ext_resource type="Texture2D" uid="uid://r6edxyr3bv5s" path="res://assets/world/TileSet.png" id="7_2tkfd"]
