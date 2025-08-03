@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://vipcrdkmew12"]
+[gd_scene load_steps=13 format=3 uid="uid://vipcrdkmew12"]
 
 [ext_resource type="Script" uid="uid://fosq7v5dfad4" path="res://ui/main_menu.gd" id="1_t7e0r"]
 [ext_resource type="FontFile" uid="uid://dkv61ofdcd0ae" path="res://ui/font/prstartk.ttf" id="3_8uxxo"]
 [ext_resource type="PackedScene" uid="uid://bvoqo3s7r1ftd" path="res://ui/button/button.tscn" id="3_rmr83"]
 [ext_resource type="Animation" uid="uid://dhwym8avp4g0m" path="res://ui/fade_out.res" id="3_wk0pr"]
-[ext_resource type="Texture2D" uid="uid://cvfajoevvvi7v" path="res://ui/sprites/C7FA09AC-C54E-4432-B424-232301A644E1.PNG" id="5_8uxxo"]
+[ext_resource type="Texture2D" uid="uid://b26wbx82qfdph" path="res://ui/sprites/IMG_6301.JPG" id="5_ei257"]
+[ext_resource type="Texture2D" uid="uid://bk6wgpmjd455w" path="res://ui/sprites/IMG_6302.JPG" id="6_p8ri8"]
 
 [sub_resource type="Animation" id="Animation_wk0pr"]
 length = 0.001
@@ -42,6 +43,44 @@ _data = {
 &"RESET": SubResource("Animation_wk0pr"),
 &"fade_in": SubResource("Animation_rmr83"),
 &"fade_out": ExtResource("3_wk0pr")
+}
+
+[sub_resource type="Animation" id="Animation_ubpvv"]
+resource_name = "new_animation"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_arv2f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5klac"]
+_data = {
+&"RESET": SubResource("Animation_arv2f"),
+&"new_animation": SubResource("Animation_ubpvv")
 }
 
 [node name="MainMenu" type="Node2D" groups=["World"]]
@@ -129,9 +168,17 @@ libraries = {
 }
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0.687467, 0.499992)
-scale = Vector2(0.158051, 0.092041)
-texture = ExtResource("5_8uxxo")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_ei257")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_p8ri8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_5klac")
+}
 
 [connection signal="pressed" from="CanvasLayer/Menus/Main/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Menus/Main/QuitButton" to="." method="_on_quit_button_pressed"]

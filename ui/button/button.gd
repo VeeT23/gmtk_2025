@@ -1,7 +1,7 @@
 extends TextureButton
 
-
-@onready var normal_texture = preload("res://ui/button/button_sprites/button.tres")
+const texture = preload("res://ui/button/button_sprites/button_new_hover1.tres")
+@onready var normal_texture = preload("res://ui/button/button_sprites/button_new.tres")
 @onready var pressed_texture = preload("res://ui/button/button_sprites/button_pressed.tres")
 @onready var lbl = $Label
 
@@ -30,4 +30,16 @@ func _on_button_up() -> void:
 
 
 func _on_resized() -> void:
-	lbl.size = size
+	pass #lbl.size = size
+
+var entered = false
+func _on_mouse_entered() -> void:
+	if entered: return
+	entered = true
+	var atlas : AtlasTexture = texture
+	for x in 6:
+		atlas.region.position = Vector2(128 * x,0)
+		texture_normal = atlas
+		await get_tree().create_timer(0.1).timeout
+		if x == 5: 
+			entered = false

@@ -37,6 +37,8 @@ func _ready() -> void:
 	
 	join_button.set_text("Join")
 	join_button.sticky = true
+	
+	$AnimationPlayer.play("new_animation")
 
 func _on_quit_button_pressed() -> void:
 	animation_player.play("fade_out")
